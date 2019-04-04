@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="no_title" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorPrimaryDark">@color/PrimaryDark</item>
+        <item name="colorSecondary">@color/Secondary</item>
+        <item name="colorError">@color/Error</item>
+        <item name="colorBackgroundFloating">@color/Background</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+</resources>
