@@ -23,6 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:hint="@string/prompt_email"
+        android:fontFamily="@font/opensansbold"
         android:background="@drawable/round_text"
         android:textAlignment="center"
         android:layout_width="wrap_content"
@@ -33,6 +34,7 @@
     <EditText
         android:id="@+id/password"
         android:layout_below="@id/email"
+        android:fontFamily="@font/opensansbold"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/round_text"
@@ -60,8 +62,33 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/login"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_marginTop="110dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lpPassword"
+            android:layout_marginRight="30dp"
+            android:textSize="18sp"
+            android:textColor="@color/Background"
+            android:fontFamily="@font/opensansbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:text="Lupa Password?" />
+
+        <TextView
+            android:layout_marginRight="30dp"
+            android:id="@+id/Daftar"
+            android:textSize="18sp"
+            android:textColor="@color/Background"
+            android:fontFamily="@font/opensansbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="viewEnd"
+            android:text="Daftar" />
+    </LinearLayout>
 
 
 </RelativeLayout>
