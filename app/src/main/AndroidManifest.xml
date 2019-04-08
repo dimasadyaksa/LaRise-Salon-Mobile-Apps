@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/no_title">
-        <activity android:name=".mainmenu"></activity>
+        <activity android:name=".LiveChat" />
+        <activity android:name=".chatroom" />
+        <activity android:name=".mainmenu" />
         <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
