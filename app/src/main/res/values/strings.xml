@@ -13,4 +13,17 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="menu_1">Full Body Treatment</string>
+    <string name="menu_3">Hand &amp; Foot Treatment</string>
+    <string name="menu_2">Face Treatment</string>
+    <string name="menu_4">Hour Treatment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="HOME">Home</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="ORDER">Pesanan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

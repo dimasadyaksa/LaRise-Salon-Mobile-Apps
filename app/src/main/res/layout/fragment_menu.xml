@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".menu">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/rowA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_marginLeft="20dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp" >
+
+                <ImageView
+                    android:id="@+id/fullbody"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/full_body"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/label_menu1"
+                    android:layout_marginTop="125dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_1"
+                    android:fontFamily="@font/opensansbold"
+                    android:textColor="@color/PrimaryDark"
+                    android:textAlignment="center"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp" >
+
+                <ImageView
+                    android:id="@+id/face"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/face"
+                    android:contentDescription="TODO" />
+                <TextView
+                    android:id="@+id/label_menu2"
+                    android:layout_marginTop="125dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/PrimaryDark"
+                    android:text="@string/menu_2"
+                    android:fontFamily="@font/opensansbold"
+                    android:textAlignment="center"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/rowB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rowA"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_marginLeft="20dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp" >
+
+                <ImageView
+                    android:id="@+id/handFoot"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/foot_hand"
+                    android:contentDescription="TODO" />
+                <TextView
+                    android:id="@+id/label_menu3"
+                    android:textColor="@color/PrimaryDark"
+                    android:layout_marginTop="105dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_3"
+                    android:fontFamily="@font/opensansbold"
+                    android:textAlignment="center"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp" >
+
+                <ImageView
+                    android:id="@+id/hour"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/hour"
+                    android:contentDescription="TODO" />
+                <TextView
+                    android:id="@+id/label_menu4"
+                    android:layout_marginTop="125dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/PrimaryDark"
+                    android:text="@string/menu_4"
+                    android:fontFamily="@font/opensansbold"
+                    android:textAlignment="center"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

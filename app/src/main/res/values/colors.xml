@@ -6,5 +6,8 @@
     <color name="Background">#FFFFFF</color>
     <color name="Surface">#FFFFFF</color>
     <color name="Error">#B00020</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#f06292</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
 </resources>

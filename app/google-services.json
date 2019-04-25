@@ -21,6 +21,14 @@
             "package_name": "com.example.larise",
             "certificate_hash": "0eac43bc45c6194255aa921a5b897cc01f4ca352"
           }
+        },
+        {
+          "client_id": "148422036442-0bib8a8l5kcmc000usrne1p4dir294ss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.larise",
+            "certificate_hash": "f8200c09ed492c02ec8edb7ae44da3dc0f3f8083"
+          }
         }
       ],
       "api_key": [

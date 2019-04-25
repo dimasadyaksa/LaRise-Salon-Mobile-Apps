@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,6 +17,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class login extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -48,8 +50,8 @@ public class login extends AppCompatActivity {
     }
 
     public void signIn(){
-        String email = this.email.getText().toString();
-        String password = this.password.getText().toString();
+        String email = "dimas@dim.co";//this.email.getText().toString();
+        String password = "dimas123";//this.password.getText().toString();
         pd.setMessage("Logging In");
         pd.show();
         mAuth.signInWithEmailAndPassword(email,password)
@@ -62,6 +64,8 @@ public class login extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(login.this, "Authentication Succeded.",
                                     Toast.LENGTH_SHORT).show();
+                            Intent goToNextActivity = new Intent(login.this, mainmenu.class);
+                            startActivity(goToNextActivity);
                         }else{
                             Toast.makeText(login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
