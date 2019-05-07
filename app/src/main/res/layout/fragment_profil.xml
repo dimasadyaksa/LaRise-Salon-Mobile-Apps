@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profil">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-180dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/background" />
+
+        <ImageView
+            android:id="@+id/photoProfil"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/namaProfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/photoProfil"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/opensansbolditalic"
+            android:textColor="@color/Surface"
+            android:text="@string/username" />
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/PrimaryDark"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/imageView3"
+            android:text="@string/emailLabel" />
+        <TextView
+            android:id="@+id/emaildata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/opensansbolditalic"
+            android:textColor="@color/Primary"
+            android:layout_below="@id/emailLabel"
+            android:text="@string/EmailData" />
+
+        <TextView
+            android:id="@+id/phoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/PrimaryDark"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/emailLabel"
+            android:text="@string/phoneLabel" />
+        <TextView
+            android:id="@+id/phonedata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/opensansbolditalic"
+            android:textColor="@color/Primary"
+            android:layout_below="@id/phoneLabel"
+            android:text="@string/phoneData" />
+    </RelativeLayout>
+
+
+</FrameLayout>

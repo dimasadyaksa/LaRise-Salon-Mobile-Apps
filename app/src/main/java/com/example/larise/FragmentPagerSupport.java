@@ -70,13 +70,10 @@ public class FragmentPagerSupport extends FragmentActivity {
          */
         @Override
         public void onCreate(Bundle savedInstanceState) {
+
             super.onCreate(savedInstanceState);
         }
 
-        /**
-         * The Fragment's UI is just a simple text view showing its
-         * instance number.
-         */
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {

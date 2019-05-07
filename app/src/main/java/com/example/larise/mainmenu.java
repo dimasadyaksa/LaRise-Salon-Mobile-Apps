@@ -155,9 +155,9 @@ public class mainmenu extends AppCompatActivity {
     private void addTabs(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new menu(), "Menu");
-        adapter.addFrag(new menu(), "Pesanan");
-        adapter.addFrag(new menu(), "Profil");
-        adapter.addFrag(new menu(), "Pengaturan");
+        adapter.addFrag(new pesanan(), "Pesanan");
+        adapter.addFrag(new profil(), "Profil");
+        adapter.addFrag(new pengaturan(), "Pengaturan");
         viewPager.setAdapter(adapter);
     }
     class ViewPagerAdapter extends FragmentPagerAdapter {
