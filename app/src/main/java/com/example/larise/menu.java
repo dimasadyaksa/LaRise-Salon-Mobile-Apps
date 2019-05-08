@@ -39,8 +39,8 @@ public class menu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View fView = inflater.inflate(R.layout.fragment_menu, container, false);
-        final ImageView memek = fView.findViewById(R.id.fullbody);
-        memek.setOnClickListener(new View.OnClickListener() {
+        final ImageView mFullBody = fView.findViewById(R.id.fullbody);
+        mFullBody.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goToNextActivity = new Intent(getActivity(),full_body.class);
@@ -48,11 +48,34 @@ public class menu extends Fragment {
             }
         });
 
+        final ImageView mFace = fView.findViewById(R.id.face);
+        mFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToNextActivity = new Intent(getActivity(),face_treatment.class);
+                startActivity(goToNextActivity);
+            }
+        });
+
+        final ImageView mHandFoot = fView.findViewById(R.id.handFoot);
+        mHandFoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToNextActivity = new Intent(getActivity(),hand_n_foot.class);
+                startActivity(goToNextActivity);
+            }
+        });
+
+        final ImageView mHourT = fView.findViewById(R.id.hour);
+        mHourT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToNextActivity = new Intent(getActivity(),hour_treatment.class);
+                startActivity(goToNextActivity);
+            }
+        });
+
         return fView;
     }
-
-     // creating a CardView and assigning a value.
-
-
 
 }
