@@ -1,12 +1,45 @@
 package com.example.larise;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+
 public class user {
+    private String UID;
     private String Nama;
     private String Email;
     private String nomorhp;
     private String Password;
+    private String tglDaftar;
+    private ArrayList<cart> cart;
 
-    public user(String nama, String email, String nomorhp, String password) {
+    public user(){
+
+    }
+
+    public user(String UID, String nama, String email, String nomorhp, String password, String tglDaftar, ArrayList<com.example.larise.cart> cart) {
+        this.UID = UID;
+        Nama = nama;
+        Email = email;
+        this.nomorhp = nomorhp;
+        Password = password;
+        this.tglDaftar = tglDaftar;
+        this.cart = cart;
+    }
+
+    public user(String UID, String nama, String email, String nomorhp, String password, String tglDaftar) {
+        this.UID = UID;
+        Nama = nama;
+        Email = email;
+        this.nomorhp = nomorhp;
+        Password = password;
+        this.tglDaftar = tglDaftar;
+    }
+
+    public user(String nama, String email, String nomorhp, String password, String uid) {
+        this.UID = uid;
+        this.tglDaftar = generateLast();
         Nama = nama;
         Email = email;
         this.nomorhp = nomorhp;
@@ -16,9 +49,27 @@ public class user {
     public String getNama() {
         return Nama;
     }
-
+    public String generateLast(){
+        return new SimpleDateFormat("dd-MM-yyyy 'pukul' HH:mm:ss z", Locale.getDefault()).format(new Date());
+    }
     public void setNama(String nama) {
         Nama = nama;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
+    public String getTglDaftar() {
+        return tglDaftar;
+    }
+
+    public void setTglDaftar(String lastLogin) {
+        this.tglDaftar = lastLogin;
     }
 
     public String getEmail() {
@@ -43,5 +94,17 @@ public class user {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public ArrayList<com.example.larise.cart> getCart() {
+        return cart;
+    }
+
+    public void setCart(ArrayList<com.example.larise.cart> cart) {
+        this.cart = cart;
+    }
+
+    public void addCart(cart cart){
+        this.cart.add(cart);
     }
 }

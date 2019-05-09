@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,16 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 
 public class login extends AppCompatActivity {
@@ -27,6 +38,10 @@ public class login extends AppCompatActivity {
     private Button login;
     private ProgressDialog pd;
     private TextView dftr;
+    private DatabaseReference db;
+
+    private ArrayList<user> users;
+    private user userTmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +77,8 @@ public class login extends AppCompatActivity {
     }
 
     public void signIn(){
-        String email = "dimas@dim.co";//this.email.getText().toString();
-        String password = "dimas123";//this.password.getText().toString();
+        String email = this.email.getText().toString();
+        String password = this.password.getText().toString();
         pd.setMessage("Logging In");
         pd.show();
         mAuth.signInWithEmailAndPassword(email,password)
@@ -76,7 +91,11 @@ public class login extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(login.this, "Authentication Succeded.",
                                     Toast.LENGTH_SHORT).show();
+
                             Intent goToNextActivity = new Intent(login.this, mainmenu.class);
+                            String message = mAuth.getUid();
+                           goToNextActivity.putExtra("UID",message );
+
                             startActivity(goToNextActivity);
                         }else{
                             Toast.makeText(login.this, "Authentication failed.",

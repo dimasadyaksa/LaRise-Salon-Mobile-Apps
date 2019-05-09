@@ -17,14 +17,26 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class register extends AppCompatActivity {
     private Button button;
     private EditText nama;
     private EditText email;
+    private EditText hp;
     private EditText password;
     private TextView login;
+    private String userID;
+    private ArrayList<user> users;
+    private user user;
     private FirebaseAuth auth;
+    private DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +50,11 @@ public class register extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String namauser = nama.getText().toString().trim();
-                String emailuser = email.getText().toString().trim();
-                String passworduser = password.getText().toString().trim();
-
+                final String namauser = nama.getText().toString().trim();
+                final String emailuser = email.getText().toString().trim();
+                final String nohp = hp.getText().toString().trim();
+                final String passworduser = password.getText().toString().trim();
+                users = new ArrayList<>();
                 if(namauser.isEmpty()||emailuser.isEmpty()||passworduser.isEmpty()){
                     Toast.makeText(register.this, "Nama, Email atau password tidak boleh kosong",
                             Toast.LENGTH_SHORT).show();
@@ -57,9 +70,14 @@ public class register extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
+
+                                        user = new user(namauser,emailuser,nohp,passworduser,auth.getUid());
+                                        db = FirebaseDatabase.getInstance().getReference();
+
+                                        userID = auth.getUid();
+                                        db.child("users").child(userID).setValue(user);
                                         Toast.makeText(register.this, "Sukses mendaftar!",
                                                 Toast.LENGTH_SHORT).show();
-
                                     }else{
                                         Toast.makeText(register.this, "Gagal Mendaftar!",
                                                 Toast.LENGTH_SHORT).show();
@@ -87,6 +105,7 @@ public class register extends AppCompatActivity {
         button = findViewById(R.id.register);
         nama = findViewById(R.id.nama);
         email = findViewById(R.id.email);
+        hp = findViewById(R.id.noHP);
         password = findViewById(R.id.password);
         auth = FirebaseAuth.getInstance();
     }

@@ -1,21 +1,32 @@
 package com.example.larise;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class mainmenu extends AppCompatActivity {
     FragmentPagerAdapter adapterViewPager;
+    private user user;
     private TabLayout tabLayout;
+    private DatabaseReference db;
+    private String UID;
     ViewPager vpPager;
     ImageView imgA;
     ImageView imgB;
@@ -65,6 +76,8 @@ public class mainmenu extends AppCompatActivity {
         tabLayout.setupWithViewPager(vpPager);
         addTabs(vpPager);
         setupTabIcons();
+        Intent intent = getIntent();
+        UID = intent.getStringExtra("UID");
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -160,6 +173,31 @@ public class mainmenu extends AppCompatActivity {
         adapter.addFrag(new pengaturan(), "Pengaturan");
         viewPager.setAdapter(adapter);
     }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
+    public user getUser(){
+        db = FirebaseDatabase.getInstance().getReference();
+        db.child("users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(user.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return user;
+    }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
