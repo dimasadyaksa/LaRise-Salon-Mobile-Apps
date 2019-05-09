@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class profil extends Fragment {
-    private mapsActivityProfil mapsProfil;
 
     public profil() {
         // Required empty public constructor

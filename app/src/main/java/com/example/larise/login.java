@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -25,7 +26,7 @@ public class login extends AppCompatActivity {
     private EditText password;
     private Button login;
     private ProgressDialog pd;
-
+    private TextView dftr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,17 @@ public class login extends AppCompatActivity {
                 }
             }
         });
+
+        dftr = findViewById(R.id.Daftar);
+        dftr.setOnClickListener(new TextView.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent goToNextActivity = new Intent(login.this, register.class);
+                startActivity(goToNextActivity);
+            }
+        });
+
     }
 
     public void signIn(){

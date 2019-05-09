@@ -1,31 +1,28 @@
 package com.example.larise;
 
+
 public class pesanan_obj {
-    private String nama;
-    private int biaya;
+    private String Nama;
+    private int Biaya;
 
     public pesanan_obj(String nama, int biaya) {
-        this.nama = nama;
-        this.biaya = biaya;
+        Nama = nama;
+        Biaya = biaya;
     }
 
     public String getNama() {
-
-        return nama;
+        return Nama;
     }
 
     public void setNama(String nama) {
-
-        this.nama = nama;
+        Nama = nama;
     }
 
     public int getBiaya() {
-
-        return biaya;
+        return Biaya;
     }
 
     public void setBiaya(int biaya) {
-
-        this.biaya = biaya;
+        Biaya = biaya;
     }
 }

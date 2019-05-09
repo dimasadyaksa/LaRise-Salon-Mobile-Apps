@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,30 +16,57 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewreg"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="75dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat= "@drawable/ic_launcher_background" />
 
         <EditText
-            android:id="@+id/email"
-            android:layout_below="@id/imageView"
+            android:id="@+id/nama"
+            android:layout_below="@id/imageViewreg"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="45dp"
+            android:hint="@string/namaLabel"
+            app:fontFamily="@font/opensansbold"
+            android:background="@drawable/round_text"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_below="@id/nama"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:hint="@string/prompt_email"
-            android:fontFamily="@font/opensansbold"
+            app:fontFamily="@font/opensansbold"
             android:background="@drawable/round_text"
             android:textAlignment="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/noHP"
+            android:layout_below="@id/email"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:hint="Nomor Handphone"
+            app:fontFamily="@font/opensansbold"
+            android:background="@drawable/round_text"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_below="@id/email"
+            android:layout_below="@id/noHP"
             app:fontFamily="@font/opensansbold"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
@@ -52,7 +79,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/password"
@@ -62,13 +89,13 @@
             android:textColor="@color/Background"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:text="Login" />
+            android:text="REGISTER" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/login"
-            android:layout_marginTop="110dp"
+            android:layout_height="38dp"
+            android:layout_below="@id/register"
+            android:layout_marginTop="21dp"
             android:orientation="horizontal">
 
             <TextView
@@ -85,7 +112,7 @@
 
             <TextView
                 android:layout_marginRight="30dp"
-                android:id="@+id/Daftar"
+                android:id="@+id/login_in_reg"
                 android:textSize="18sp"
                 android:textColor="@color/Background"
                 android:fontFamily="@font/opensansbold"
@@ -93,12 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
-                android:text="Daftar" />
+                android:text="Login" />
         </LinearLayout>
-
-
-
-
 
     </RelativeLayout>
 </ScrollView>
