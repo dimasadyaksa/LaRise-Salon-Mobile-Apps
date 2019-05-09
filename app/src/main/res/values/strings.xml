@@ -37,4 +37,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_cart_view">cartView</string>
+    <string name="title_activity_full_body">full_body</string>
+    <string name="title_activity_facetreatment">Face Treatment</string>
+    <string name="title_activity_hnf">Hand and Foot Treatment</string>
+    <string name="title_activity_hourtreatment">Hour Treatment</string>
 </resources>

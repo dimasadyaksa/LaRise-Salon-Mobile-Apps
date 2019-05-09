@@ -17,7 +17,34 @@
             android:label="@string/title_activity_cart_view"></activity>
         <activity
             android:name=".register"
-            android:label="@string/title_activity_register" />
+            android:label="@string/title_activity_register" ></activity>
+        <activity
+            android:name=".full_body"
+            android:label="@string/title_activity_full_body">
+        </activity>
+
+        <activity
+            android:name=".face_treatment"
+            android:label="@string/title_activity_facetreatment">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".hand_n_foot"
+            android:label="@string/title_activity_hnf">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".hour_treatment"
+            android:label="@string/title_activity_hourtreatment">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
