@@ -44,8 +44,8 @@ public class profil extends Fragment {
         TextView nama = fview.findViewById(R.id.namaProfil);
         TextView email = fview.findViewById(R.id.emaildata);
         TextView phone = fview.findViewById(R.id.phonedata);
-        this.fb = new FirebaseHelper();
-        this.fb = (FirebaseHelper)getArguments().getSerializable("FB");
+        fb = new FirebaseHelper();
+        fb = (FirebaseHelper)getArguments().getSerializable("FB");
             nama.setText(fb.getUs().getNama());
             email.setText(fb.getUs().getEmail());
             phone.setText(fb.getUs().getNomorhp());
