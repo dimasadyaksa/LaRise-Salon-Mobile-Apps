@@ -27,6 +27,9 @@ import com.google.firebase.database.Logger;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -39,8 +42,9 @@ public class login extends AppCompatActivity {
     private ProgressDialog pd;
     private TextView dftr;
     private DatabaseReference db;
-
+    boolean done = false;
     private ArrayList<user> users;
+    private String uid;
     private user userTmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,18 +89,26 @@ public class login extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(pd.isShowing()){
-                            pd.dismiss();
-                        }
+
                         if(task.isSuccessful()){
+                            uid = mAuth.getUid();
+                            FirebaseHelper fb = new FirebaseHelper();
+                            fb.setUid(uid);
+                            fb.setDb(FirebaseDatabase.getInstance().getReference());
+                            fb.getDB();
                             Toast.makeText(login.this, "Authentication Succeded.",
                                     Toast.LENGTH_SHORT).show();
 
                             Intent goToNextActivity = new Intent(login.this, mainmenu.class);
-                            String message = mAuth.getUid();
-                           goToNextActivity.putExtra("UID",message );
 
+                            goToNextActivity.putExtra("UID",uid );
+                            goToNextActivity.putExtra("FB",fb );
+
+                            if(pd.isShowing()){
+                                pd.dismiss();
+                            }
                             startActivity(goToNextActivity);
+
                         }else{
                             Toast.makeText(login.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -105,4 +117,5 @@ public class login extends AppCompatActivity {
                 });
 
     }
+
 }

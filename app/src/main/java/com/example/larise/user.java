@@ -1,11 +1,12 @@
 package com.example.larise;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
 
-public class user {
+public class user implements Serializable {
     private String UID;
     private String Nama;
     private String Email;
