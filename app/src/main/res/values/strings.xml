@@ -41,4 +41,9 @@
     <string name="title_activity_facetreatment">Face Treatment</string>
     <string name="title_activity_hnf">Hand and Foot Treatment</string>
     <string name="title_activity_hourtreatment">Hour Treatment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="btn_map_kiri">Batal</string>
+    <string name="btn_map_kanan">Checkout</string>
+    <string name="checkout">CheckOut</string>
+    <string name="add_to_chart">Add to Chart</string>
 </resources>
