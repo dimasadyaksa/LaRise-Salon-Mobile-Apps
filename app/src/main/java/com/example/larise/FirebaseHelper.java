@@ -1,14 +1,14 @@
 package com.example.larise;
 
 import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.concurrent.Semaphore;
 
 public class FirebaseHelper implements Serializable {
     private transient DatabaseReference db;
@@ -54,6 +54,8 @@ public class FirebaseHelper implements Serializable {
     }
 
     public void getDB(){
+        final Semaphore semaphore = new Semaphore(0);
+        db = FirebaseDatabase.getInstance().getReference();
         db.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,7 +80,9 @@ public class FirebaseHelper implements Serializable {
                             us.setUID(singleSnapshot.getValue(String.class));
                             break;
                     }
+
                 }
+                semaphore.release();
             }
 
             @Override
@@ -86,6 +90,11 @@ public class FirebaseHelper implements Serializable {
                 Log.e("fail", databaseError.getDetails());
             }
         });
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            Log.e("ERR","BIARIN" );
+        }
     }
 
 }

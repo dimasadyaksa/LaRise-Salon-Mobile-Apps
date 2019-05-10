@@ -1,14 +1,9 @@
 package com.example.larise;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +11,21 @@ import android.widget.TextView;
 
 
 public class profil extends Fragment {
-    private user user;
+    private String UID,nama,email,nohp;
     private FirebaseHelper fb;
-
+    private View fview;
     public profil() {
         // Required empty public constructor
     }
 
 
-    public static profil newInstance(FirebaseHelper fb) {
+    public static profil newInstance(String UID,String nama,String email,String nohp) {
         profil fragment = new profil();
         Bundle args = new Bundle();
-        args.putSerializable("FB",fb );
+        args.putString("UID",UID );
+        args.putString("nama",nama );
+        args.putString("email",email );
+        args.putString("nohp",nohp );
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,17 +36,24 @@ public class profil extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View fview = inflater.inflate(R.layout.fragment_profil, container, false);
-        TextView nama = fview.findViewById(R.id.namaProfil);
-        TextView email = fview.findViewById(R.id.emaildata);
-        TextView phone = fview.findViewById(R.id.phonedata);
-        fb = new FirebaseHelper();
-        fb = (FirebaseHelper)getArguments().getSerializable("FB");
-            nama.setText(fb.getUs().getNama());
-            email.setText(fb.getUs().getEmail());
-            phone.setText(fb.getUs().getNomorhp());
+
+        Bundle args = getArguments();
+        fview = inflater.inflate(R.layout.fragment_profil, container, false);
+        final TextView nama = fview.findViewById(R.id.namaProfil);
+        final TextView email = fview.findViewById(R.id.emaildata);
+        final TextView phone = fview.findViewById(R.id.phonedata);
+        if (args != null) {
+            UID = args.getString("UID", "");
+            this.nama = args.getString("nama");
+            this.email = args.getString("email");
+            this.nohp = args.getString("nohp");
+
+        }
+        nama.setText(this.nama);
+        email.setText(this.email);
+        phone.setText(this.nohp);
         return fview;
     }
 

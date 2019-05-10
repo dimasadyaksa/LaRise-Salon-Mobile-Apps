@@ -92,17 +92,12 @@ public class login extends AppCompatActivity {
 
                         if(task.isSuccessful()){
                             uid = mAuth.getUid();
-                            FirebaseHelper fb = new FirebaseHelper();
-                            fb.setUid(uid);
-                            fb.setDb(FirebaseDatabase.getInstance().getReference());
-                            fb.getDB();
                             Toast.makeText(login.this, "Authentication Succeded.",
                                     Toast.LENGTH_SHORT).show();
 
                             Intent goToNextActivity = new Intent(login.this, mainmenu.class);
 
                             goToNextActivity.putExtra("UID",uid );
-                            goToNextActivity.putExtra("FB",fb );
 
                             if(pd.isShowing()){
                                 pd.dismiss();

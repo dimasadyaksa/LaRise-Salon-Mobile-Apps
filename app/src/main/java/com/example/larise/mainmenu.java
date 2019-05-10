@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 
@@ -24,7 +27,6 @@ public class mainmenu extends AppCompatActivity {
     FragmentPagerAdapter adapterViewPager;
     private user user;
     private TabLayout tabLayout;
-    private DatabaseReference db;
     private String UID;
     private FirebaseHelper fb;
     private ProgressDialog pd;
@@ -68,6 +70,8 @@ public class mainmenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
+        pd = new ProgressDialog(mainmenu.this);
+
         vpPager = findViewById(R.id.vpager);
         pd = new ProgressDialog(mainmenu.this);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -76,15 +80,37 @@ public class mainmenu extends AppCompatActivity {
         imgC = new ImageView(mainmenu.this);
         imgD = new ImageView(mainmenu.this);
         tabLayout.setupWithViewPager(vpPager);
-        addTabs(vpPager);
-        setupTabIcons();
+
         Intent intent = getIntent();
         UID = intent.getStringExtra("UID");
-        fb = (FirebaseHelper) intent.getSerializableExtra("FB");
+        Log.e("MAINMENU",UID );
+        pd.setMessage("Loading");
+        pd.show();
+        pd.setCanceledOnTouchOutside(false);
 
-        if(fb.getUs()!=null){
-            Log.e("MAIN",fb.getUs().getEmail());
-        }
+        final TaskCompletionSource<user> source = new TaskCompletionSource<>();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                fb = new FirebaseHelper();
+                fb.setUid(UID);
+                fb.getDB();
+                source.setResult(fb.getUs());
+            }
+        }).start();
+        Task<user> task = source.getTask();
+        task.addOnCompleteListener(new OnCompleteListener<com.example.larise.user>() {
+            @Override
+            public void onComplete(@NonNull Task<com.example.larise.user> task) {
+                addTabs(vpPager);
+                setupTabIcons();
+                if(pd.isShowing()){
+                    pd.dismiss();
+                    pd.hide();
+                }
+            }
+        });
+
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -176,7 +202,7 @@ public class mainmenu extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new menu(), "Menu");
         adapter.addFrag(new pesanan(), "Pesanan");
-        Fragment prof = profil.newInstance(fb);
+        Fragment prof = profil.newInstance(UID,fb.getUs().getNama(),fb.getUs().getEmail(),fb.getUs().getNomorhp());
         adapter.addFrag(prof, "Profil");
         adapter.addFrag(new pengaturan(), "Pengaturan");
         viewPager.setAdapter(adapter);
