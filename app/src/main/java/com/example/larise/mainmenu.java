@@ -5,18 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,8 @@ public class mainmenu extends AppCompatActivity {
     private TabLayout tabLayout;
     private DatabaseReference db;
     private String UID;
+    private FirebaseHelper fb;
+    private ProgressDialog pd;
     ViewPager vpPager;
     ImageView imgA;
     ImageView imgB;
@@ -68,6 +69,7 @@ public class mainmenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
         vpPager = findViewById(R.id.vpager);
+        pd = new ProgressDialog(mainmenu.this);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         imgA = new ImageView(mainmenu.this);
         imgB = new ImageView(mainmenu.this);
@@ -78,6 +80,11 @@ public class mainmenu extends AppCompatActivity {
         setupTabIcons();
         Intent intent = getIntent();
         UID = intent.getStringExtra("UID");
+        fb = (FirebaseHelper) intent.getSerializableExtra("FB");
+
+        if(fb.getUs()!=null){
+            Log.e("MAIN",fb.getUs().getEmail());
+        }
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -169,7 +176,8 @@ public class mainmenu extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new menu(), "Menu");
         adapter.addFrag(new pesanan(), "Pesanan");
-        adapter.addFrag(new profil(), "Profil");
+        Fragment prof = profil.newInstance(fb);
+        adapter.addFrag(prof, "Profil");
         adapter.addFrag(new pengaturan(), "Pengaturan");
         viewPager.setAdapter(adapter);
     }
@@ -182,21 +190,6 @@ public class mainmenu extends AppCompatActivity {
         this.UID = UID;
     }
 
-    public user getUser(){
-        db = FirebaseDatabase.getInstance().getReference();
-        db.child("users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(user.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return user;
-    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

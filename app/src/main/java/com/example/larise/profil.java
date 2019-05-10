@@ -1,6 +1,7 @@
 package com.example.larise;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,26 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.logging.Logger;
 
 public class profil extends Fragment {
     private user user;
+    private FirebaseHelper fb;
 
     public profil() {
         // Required empty public constructor
     }
 
 
-    public static profil newInstance() {
+    public static profil newInstance(FirebaseHelper fb) {
         profil fragment = new profil();
         Bundle args = new Bundle();
+        args.putSerializable("FB",fb );
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,36 +41,15 @@ public class profil extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fview = inflater.inflate(R.layout.fragment_profil, container, false);
-        mainmenu mm = (mainmenu) getActivity();
-        String uid = mm.getUID();
-        user = new user();
-        setuser(uid);
         TextView nama = fview.findViewById(R.id.namaProfil);
         TextView email = fview.findViewById(R.id.emaildata);
         TextView phone = fview.findViewById(R.id.phonedata);
-
-        nama.setText(uid);
-        email.setText(user.getEmail());
+        fb = new FirebaseHelper();
+        fb = (FirebaseHelper)getArguments().getSerializable("FB");
+            nama.setText(fb.getUs().getNama());
+            email.setText(fb.getUs().getEmail());
+            phone.setText(fb.getUs().getNomorhp());
         return fview;
     }
-    private void setuser(String UID){
-        DatabaseReference db;
-        final String uid = UID;
-        db = FirebaseDatabase.getInstance().getReference();
-        db.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                HashMap<String,user> stringuserHashMap = new HashMap<>();
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                     Log.e("TES", singleSnapshot.getKey());
-                }
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("fail", databaseError.getDetails());
-            }
-        });
-    }
 }

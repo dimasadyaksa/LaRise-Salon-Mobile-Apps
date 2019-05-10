@@ -16,41 +16,41 @@ import java.util.ArrayList;
 
 public class pesanan extends Fragment  {
 
-    private ArrayList<pesanan_obj> pesanans;
+  private ArrayList<pesanan_obj> pesanans;
 
-    public pesanan() {
-    }
+  public pesanan() {
+  }
 
-    public static pesanan newInstance() {
-        pesanan fragment = new pesanan();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+  public static pesanan newInstance() {
+    pesanan fragment = new pesanan();
+    Bundle args = new Bundle();
+    fragment.setArguments(args);
+    return fragment;
+  }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View fView = inflater.inflate(R.layout.fragment_pesanan, container, false);
-        pesanans = new ArrayList<>();
-        addData();
-        rv_pesanan_adapter adapter = new rv_pesanan_adapter(pesanans);
-        RecyclerView recyclerView = (RecyclerView) fView.findViewById(R.id.rv_pesanan);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        return fView;
-    }
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    View fView = inflater.inflate(R.layout.fragment_pesanan, container, false);
+    pesanans = new ArrayList<>();
+    addData();
+    rv_pesanan_adapter adapter = new rv_pesanan_adapter(pesanans);
+    RecyclerView recyclerView = (RecyclerView) fView.findViewById(R.id.rv_pesanan);
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setLayoutManager(layoutManager);
+    recyclerView.setAdapter(adapter);
+    return fView;
+  }
 
 
-    void addData(){
-        Log.d("M", "Added");
-        pesanans.add(new pesanan_obj("Dimas Maulana", 101200));
-        pesanans.add(new pesanan_obj("Dimas wqna", 10200));
-        pesanans.add(new pesanan_obj("Dimasqwlana", 112));
-        pesanans.add(new pesanan_obj("Diqwna", 102200));
-        pesanans.add(new pesanan_obj("Dimas qwna", 11200));
+  void addData(){
+    Log.d("M", "Added");
+    pesanans.add(new pesanan_obj("Dimas Maulana", 101200));
+    pesanans.add(new pesanan_obj("Dimas wqna", 10200));
+    pesanans.add(new pesanan_obj("Dimasqwlana", 112));
+    pesanans.add(new pesanan_obj("Diqwna", 102200));
+    pesanans.add(new pesanan_obj("Dimas qwna", 11200));
 
-    }
+  }
 }
