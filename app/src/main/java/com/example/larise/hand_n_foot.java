@@ -6,10 +6,11 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class hand_n_foot extends Activity {
+public class hand_n_foot extends AppCompatActivity {
     private ArrayList<full_body_obj> list_hnb;
 
     private RecyclerView recyclerView;
@@ -43,10 +44,12 @@ public class hand_n_foot extends Activity {
 
     void dataHnB(){
         Log.d("M", "Added");
-        list_hnb.add(new full_body_obj("HnB Treatment A", 101200));
-        list_hnb.add(new full_body_obj("HnB Treatment B", 10200));
-        list_hnb.add(new full_body_obj("HnB Treatment C", 112));
-        list_hnb.add(new full_body_obj("HnB Treatment C", 102200));
-        list_hnb.add(new full_body_obj("HnB Treatment D", 11200));
+        list_hnb.add(new full_body_obj("Manicure", 50000));
+        list_hnb.add(new full_body_obj("Pedicure", 50000));
+        list_hnb.add(new full_body_obj("Waxing Kaki", 100000));
+        list_hnb.add(new full_body_obj("Waxing Tangan", 80000));
+        list_hnb.add(new full_body_obj("Waxing Ketiak", 65000));
+        list_hnb.add(new full_body_obj("Nail Art", 30000));
+        list_hnb.add(new full_body_obj("Refelexiologi", 50000));
     }
 }

@@ -1,5 +1,7 @@
 package com.example.larise;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,9 +16,15 @@ public class user implements Serializable {
     private String Password;
     private String tglDaftar;
     private ArrayList<cart> cart;
-
+    private String catatan;
+    private LatLng l;
     public user(){
 
+    }
+
+    public user(LatLng l, String catatan){
+        this.l = l;
+        this.catatan = catatan;
     }
 
     public user(String UID, String nama, String email, String nomorhp, String password, String tglDaftar, ArrayList<com.example.larise.cart> cart) {

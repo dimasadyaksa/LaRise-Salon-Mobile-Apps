@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class full_body extends Activity {
+public class full_body extends AppCompatActivity {
     private ArrayList<full_body_obj> list_full_body;
 
     private RecyclerView recyclerView;
@@ -45,11 +46,12 @@ public class full_body extends Activity {
 
     void dataFullBody(){
         Log.d("M", "Added");
-        list_full_body.add(new full_body_obj("Full Body A", 101200));
-        list_full_body.add(new full_body_obj("Full Body B", 10200));
-        list_full_body.add(new full_body_obj("Full Body C", 112));
-        list_full_body.add(new full_body_obj("Full Body C", 102200));
-        list_full_body.add(new full_body_obj("Full Body D", 11200));
+        list_full_body.add(new full_body_obj("Pijat Tradisional", 75000));
+        list_full_body.add(new full_body_obj("Lulut", 100000));
+        list_full_body.add(new full_body_obj("Bleaching Kaki+Tangan", 70000));
+        list_full_body.add(new full_body_obj("Bleaching Full Body", 130000));
+        list_full_body.add(new full_body_obj("Kerik", 25000));
+        list_full_body.add(new full_body_obj("Ratus Vagina", 25000));
     }
 
 }
