@@ -46,7 +46,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/pesan"
             android:layout_width="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"

@@ -9,13 +9,16 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 public class full_body_adapter extends RecyclerView.Adapter<full_body_adapter.rv_order_ViewHolder> {
     private ArrayList<Cart> mDataset;
     private user user;
     private FirebaseHelper fb;
-
+    Cart Cart;
     public full_body_adapter(ArrayList<Cart> mDataset, FirebaseHelper fb){
         this.mDataset = mDataset;
         this.fb = fb;
@@ -34,24 +37,18 @@ public class full_body_adapter extends RecyclerView.Adapter<full_body_adapter.rv
     }
 
     @Override
-    public void onBindViewHolder(final full_body_adapter.rv_order_ViewHolder holder, final int position) {
-        Cart Cart = new Cart(mDataset.get(position).getNama(),mDataset.get(position).getBiaya());
+    public void onBindViewHolder(final full_body_adapter.rv_order_ViewHolder holder, int position) {
+        Cart = new Cart(mDataset.get(position).getNama(),mDataset.get(position).getBiaya());
+        Cart.isOnChart = mDataset.get(position).isOnChart;
         holder.txtPesanan.setText(mDataset.get(position).getNama());
-        holder.txtBiaya.setText(String.valueOf(mDataset.get(position).getBiaya()));
-
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        format.setCurrency(Currency.getInstance("Rp. "));
+        String result = format.format(Cart.getBiaya());
+        holder.txtBiaya.setText(result);
         holder.add.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                event.
-                if(!mDataset.get(position).isOnChart){
-                    GLOBAL.tambahCart(mDataset.get(position));
-                    holder.add.setText("Hapus");
-                    mDataset.get(position).isOnChart = true;
-                }else{
-                    GLOBAL.hapusCart(mDataset.get(position));
-                    holder.add.setText("Tambah");
-                    mDataset.get(position).isOnChart = false;
-                }
+                    GLOBAL.tambahCart(Cart);
                 return false;
             }
 

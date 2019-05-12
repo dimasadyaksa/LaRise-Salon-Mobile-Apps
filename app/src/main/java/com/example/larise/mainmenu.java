@@ -85,8 +85,13 @@ public class mainmenu extends AppCompatActivity {
 
         Intent intent = getIntent();
         UID = intent.getStringExtra("UID");
+        if(UID!=null){
+            GLOBAL.setListener(UID);
+        }else{
+            GLOBAL.setListener(GLOBAL.user.getUID());
+            UID = GLOBAL.user.getUID();
+        }
 
-        GLOBAL.setListener(UID);
         pd.setMessage("Loading");
         pd.show();
         pd.setCanceledOnTouchOutside(false);
@@ -95,6 +100,7 @@ public class mainmenu extends AppCompatActivity {
             @Override
             public void run() {
                 GLOBAL.init(UID);
+
                 source.setResult(GLOBAL.user);
             }
         }).start();
@@ -114,12 +120,7 @@ public class mainmenu extends AppCompatActivity {
                 });
 				addTabs(vpPager);
 				setupTabIcons();
-                if(pd.isShowing()){
-                    pd.dismiss();
-                    pd.hide();
-                }
-            }
-        });
+
 
 
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -202,12 +203,21 @@ public class mainmenu extends AppCompatActivity {
                         break;
                 }
             }
+                @Override
+                public void onPageScrollStateChanged(int state) {
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+                }
 
+        });
+
+                if(pd.isShowing()){
+                    pd.dismiss();
+                    pd.hide();
+                }
             }
         });
+
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

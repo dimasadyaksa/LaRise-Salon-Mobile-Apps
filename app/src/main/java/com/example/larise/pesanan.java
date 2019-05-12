@@ -25,12 +25,13 @@ public class pesanan extends Fragment  {
     return fragment;
   }
 
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
+    pesanans = GLOBAL.pesananObjeks;
     View fView = inflater.inflate(R.layout.fragment_pesanan, container, false);
-    pesanans = new ArrayList<>();
-    rv_cart_adapter adapter = new rv_cart_adapter(GLOBAL.pesananObjeks);
+    rv_cart_adapter adapter = new rv_cart_adapter(pesanans);
     RecyclerView recyclerView = (RecyclerView) fView.findViewById(R.id.rv_pesanan);
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setHasFixedSize(true);

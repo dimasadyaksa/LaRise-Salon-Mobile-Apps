@@ -33,7 +33,6 @@ public class hour_treatment extends AppCompatActivity {
         user = (user)intent.getSerializableExtra("USER");
         FirebaseHelper fb ;
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        cekOnChart();
         mAdapter = new full_body_adapter(list_hour,fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
@@ -44,28 +43,12 @@ public class hour_treatment extends AppCompatActivity {
         // specify an adapter (see also next example)
         recyclerView.setAdapter(mAdapter);
     }
-    void cekOnChart(){
-        for(int i=0;i<list_hour.size();i++){
-            if(GLOBAL.carts.contains(list_hour.get(i))){
-                list_hour.get(i).isOnChart = true;
-            }else{
-                list_hour.get(i).isOnChart = false;
-            }
-        }
-    }
+
     public void onBackPressed(){
-/*        user = mAdapter.getUser();
-        Log.e("USERM", user.getEmail());
-        i = new Intent();
-        i.putExtra("UID", user.getUID());
-        i.putExtra("USER", user);
-        setResult(RESULT_OK, i);
-        finish();
-*/
         finish();
     }
     void dataHourT(){
-        Log.d("M", "Added");
+        Log.e("HOUR", "Added");
         list_hour.add(new Cart("Creambath", 40000));
         list_hour.add(new Cart("Hair Mask", 45000));
         list_hour.add(new Cart("Hair Spa", 45000));

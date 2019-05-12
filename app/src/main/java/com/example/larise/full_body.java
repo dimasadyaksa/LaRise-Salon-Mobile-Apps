@@ -30,7 +30,6 @@ public class full_body extends AppCompatActivity {
         Intent intent = getIntent();
         user = (user)intent.getSerializableExtra("USER");
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        cekOnChart();
         mAdapter = new full_body_adapter(list_full_body,fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
@@ -44,18 +43,8 @@ public class full_body extends AppCompatActivity {
         finish();
     }
 
-    void cekOnChart(){
-        for(int i=0;i<list_full_body.size();i++){
-            if(GLOBAL.carts.contains(list_full_body.get(i))){
-                list_full_body.get(i).isOnChart = true;
-            }else{
-                list_full_body.get(i).isOnChart = false;
-            }
-        }
-    }
-
     void dataFullBody(){
-        Log.d("M", "Added");
+        Log.d("B", "Added");
         list_full_body.add(new Cart("Pijat Tradisional", 75000));
         list_full_body.add(new Cart("Lulut", 100000));
         list_full_body.add(new Cart("Bleaching Kaki+Tangan", 70000));

@@ -31,7 +31,6 @@ public class face_treatment extends AppCompatActivity {
         user = (user)intent.getSerializableExtra("USER");
         FirebaseHelper fb ;
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        cekOnChart();
         mAdapter = new full_body_adapter(list_face,fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
@@ -40,20 +39,11 @@ public class face_treatment extends AppCompatActivity {
 
         recyclerView.setAdapter(mAdapter);
     }
-    void cekOnChart(){
-        for(int i=0;i<list_face.size();i++){
-            if(GLOBAL.carts.contains(list_face.get(i))){
-                list_face.get(i).isOnChart = true;
-            }else{
-                list_face.get(i).isOnChart = false;
-            }
-        }
-    }
     public void onBackPressed(){
         finish();
     }
     void dataFaceT(){
-        Log.d("M", "Added");
+        Log.d("F", "Added");
         list_face.add(new Cart("Setrika Wajah", 200000));
         list_face.add(new Cart("Facial Biokos", 80000));
         list_face.add(new Cart("Facial La Tulipe", 70000));

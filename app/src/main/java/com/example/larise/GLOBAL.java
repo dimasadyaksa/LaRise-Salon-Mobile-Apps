@@ -32,6 +32,7 @@ public class GLOBAL {
 			@Override
 			public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 				Log.e("PESANAN LISTEN CHANGE", "Change");
+				pesananObjeks.add(dataSnapshot.getValue(PesananObjek.class));
 			}
 
 			@Override
@@ -61,6 +62,7 @@ public class GLOBAL {
 			@Override
 			public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 				Log.e("CART LISTEN Changed", "CHANGE");
+				carts.add(dataSnapshot.getValue(Cart.class));
 			}
 
 			@Override
@@ -92,11 +94,14 @@ public class GLOBAL {
     	return true;
 	}
 
-	public static void hapusCart(Cart p){
-		fb.deleteCart(p);
-	}
 
 	public static void tambahCart(Cart p){
+		Log.e("TAMBAH", "TRUE");
     	fb.sendCart(p);
+	}
+
+	public static void sendPesanan(PesananObjek p){
+		Log.e("SEND PESANAN", "DONE");
+		fb.sendPesanan(p);
 	}
 }

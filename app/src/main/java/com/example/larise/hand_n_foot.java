@@ -32,7 +32,6 @@ public class hand_n_foot extends AppCompatActivity {
         user = (user)intent.getSerializableExtra("USER");
         FirebaseHelper fb ;
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        cekOnChart();
         mAdapter = new full_body_adapter(list_hnb,fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
@@ -43,20 +42,12 @@ public class hand_n_foot extends AppCompatActivity {
         // specify an adapter (see also next example)
         recyclerView.setAdapter(mAdapter);
     }
-    void cekOnChart(){
-        for(int i=0;i<list_hnb.size();i++){
-            if(GLOBAL.carts.contains(list_hnb.get(i))){
-                list_hnb.get(i).isOnChart = true;
-            }else{
-                list_hnb.get(i).isOnChart = false;
-            }
-        }
-    }
+
     public void onBackPressed(){
         finish();
     }
     void dataHnB(){
-        Log.d("M", "Added");
+        Log.e("M", "Added");
         list_hnb.add(new Cart("Manicure", 50000));
         list_hnb.add(new Cart("Pedicure", 50000));
         list_hnb.add(new Cart("Waxing Kaki", 100000));

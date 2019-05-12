@@ -12,9 +12,9 @@ public class PesananObjek implements Serializable {
     private String status;
     private double latitude;
     private double longitude;
-    private ArrayList<Cart> pesanan = new ArrayList<>();
+    private ArrayList<Cart> pesanan;
     private String catatan;
-
+    public String Alamat;
     public PesananObjek(){
 
     }
@@ -82,9 +82,11 @@ public class PesananObjek implements Serializable {
 
     public int getTotal() {
     	total=0;
-    	for (int i=0;i<pesanan.size();i++){
-    		total+=pesanan.get(i).getBiaya();
-		}
+    	if (pesanan!=null){
+            for (int i=0;i<pesanan.size();i++){
+                total+=pesanan.get(i).getBiaya();
+            }
+        }
         return total;
     }
 
