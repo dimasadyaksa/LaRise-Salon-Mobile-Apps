@@ -10,17 +10,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.Semaphore;
 
 public class FirebaseHelper implements Serializable {
     private transient DatabaseReference db;
     private user us;
-    Cart cart;
-    ArrayList<Cart> carts = new ArrayList<>();
-    private pesanan_obj ps;
+    PesananObjek pesananObjek;
+    ArrayList<PesananObjek> pesananObjeks = new ArrayList<>();
+    private Cart ps;
     private String nc;
     private String uid ;
-
     public FirebaseHelper() {
     }
 
@@ -30,40 +30,39 @@ public class FirebaseHelper implements Serializable {
     public user getUs() {
         return us;
     }
-    public Cart getCart(){
-        return this.cart;
+    public PesananObjek getPesananObjek(){
+        return this.pesananObjek;
     }
-    public ArrayList<Cart> getCarts() {
-        return carts;
+    public ArrayList<PesananObjek> getPesananObjeks() {
+        return pesananObjeks;
     }
 
     public void tes(){
-        ArrayList<pesanan_obj>pesanan_objs = new ArrayList<>();
-        Cart cart = new Cart();
-        cart.setId();
-        cart.setLatitude(2);
-        cart.setLongitude(2);
-        cart.setStatus("WAIT");
-        cart.setTotal(1000);
-        pesanan_objs.add(new pesanan_obj("wr4qwaw", 414));
-        pesanan_objs.add(new pesanan_obj("wrqwaw", 41422));
-        pesanan_objs.add(new pesanan_obj("wrqwaw", 411424));
-        pesanan_objs.add(new pesanan_obj("wrqwfaw", 4141221));
-        pesanan_objs.add(new pesanan_obj("wfwwrqw", 41114));
-        cart.setPesanan(pesanan_objs);
+        ArrayList<Cart> Carts = new ArrayList<>();
+        PesananObjek pesananObjek = new PesananObjek();
+        pesananObjek.setId();
+        pesananObjek.setLatitude(2);
+        pesananObjek.setLongitude(2);
+        pesananObjek.setStatus("WAIT");
+        pesananObjek.setTotal(1000);
+        Carts.add(new Cart("wr4qwaw", 414));
+        Carts.add(new Cart("wrqwaw", 41422));
+        Carts.add(new Cart("wrqwaw", 411424));
+        Carts.add(new Cart("wrqwfaw", 4141221));
+        Carts.add(new Cart("wfwwrqw", 41114));
+        pesananObjek.setPesanan(Carts);
         db = FirebaseDatabase.getInstance().getReference();
-        db.child("pesanan").child(uid).child(cart.getId()).setValue(cart);
+        db.child("pesanan").child(uid).child(pesananObjek.getId()).setValue(pesananObjek);
     }
-	public void downloadPesanan(){
+	public void downloadCart(){
 		final Semaphore semaphore = new Semaphore(0);
-		//tes();
-		GLOBAL.pesanans.clear();
+		GLOBAL.carts.clear();
 		db = FirebaseDatabase.getInstance().getReference();
-		db.child("Cart").child(GLOBAL.user.getUID()).addValueEventListener(new ValueEventListener() {
+		db.child("cart").child(GLOBAL.user.getUID()).addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
 				for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-					GLOBAL.pesanans.add(singleSnapshot.getValue(pesanan_obj.class));
+					GLOBAL.carts.add(singleSnapshot.getValue(Cart.class));
 				}
 				semaphore.release();
 			}
@@ -79,17 +78,19 @@ public class FirebaseHelper implements Serializable {
 		}
 	}
 
-    public Cart downloadCart(){
+    public void downloadPesanan(){
         final Semaphore semaphore = new Semaphore(0);
-        //tes();
-        final ArrayList<Cart> carts =new ArrayList<>();
-        GLOBAL.carts.clear();
+        final HashMap<String, PesananObjek>cartMap = new HashMap<>();
+        GLOBAL.pesananObjeks.clear();
         db = FirebaseDatabase.getInstance().getReference();
-        db.child("pesanan").child(uid).addValueEventListener(new ValueEventListener() {
+        db.child("pesanan").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                pesananObjek =new PesananObjek();
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    GLOBAL.carts.add(singleSnapshot.getValue(Cart.class));
+                    Log.e("download PesananObjek", singleSnapshot.getKey());
+                    cartMap.put(singleSnapshot.getKey(), singleSnapshot.getValue(PesananObjek.class));
+                    GLOBAL.pesananObjeks.add(cartMap.get(singleSnapshot.getKey()));
                 }
                 semaphore.release();
             }
@@ -103,16 +104,20 @@ public class FirebaseHelper implements Serializable {
         } catch (InterruptedException e) {
             Log.e("ERR","BIARIN" );
         }
-        return this.cart;
     }
 
-    public void sendPesanan(final pesanan_obj p){
+    public void sendCart(final Cart p){
+        DatabaseReference db;
         db = FirebaseDatabase.getInstance().getReference();
-        db.child("pesanan").child(GLOBAL.user.getUID()).child(GLOBAL.carts.get(0).getId()).child("pesanan").child(Integer.toString(GLOBAL
-				.carts.get(0).getPesanan().size())).setValue(p);
-		db.child("pesanan").child(uid).child(GLOBAL.carts.get(0).getId()).child("total").setValue(GLOBAL.carts.get(0).getTotal());
-		db.child("Cart").child(uid).child(Integer.toString(GLOBAL.pesanans.size())).setValue(p);
+        p.no = "No - "+(GLOBAL.carts.size()+1);
+        db.child("Cart").child(GLOBAL.user.getUID()).child("No - "+(GLOBAL.carts.size()+1)).setValue(p);
     }
+    public void deleteCart(Cart p){
+        DatabaseReference db;
+        db = FirebaseDatabase.getInstance().getReference();
+        db.child("Cart").child(GLOBAL.user.getUID()).child(p.no).child("biaya").removeValue();
+    }
+
 
     public void getDB(){
         final Semaphore semaphore = new Semaphore(0);

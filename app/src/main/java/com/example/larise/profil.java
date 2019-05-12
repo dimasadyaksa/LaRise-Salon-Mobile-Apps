@@ -50,8 +50,8 @@ public class profil extends Fragment {
 
         }
         nama.setText(GLOBAL.user.getNama());
-        email.setText(this.email);
-        phone.setText(this.nohp);
+        email.setText(GLOBAL.user.getEmail());
+        phone.setText(GLOBAL.user.getNomorhp());
         return fview;
     }
 

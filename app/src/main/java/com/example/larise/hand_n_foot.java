@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-public class hand_n_foot extends AppCompatActivity {
-    private ArrayList<full_body_obj> list_hnb;
 
 public class hand_n_foot extends AppCompatActivity {
-    private ArrayList<pesanan_obj> list_hnb;
+    private ArrayList<Cart> list_hnb;
     private Intent i;
     private RecyclerView recyclerView;
     private full_body_adapter mAdapter;
@@ -30,14 +26,13 @@ public class hand_n_foot extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_body);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         list_hnb = new ArrayList<>();
         dataHnB();
         Intent intent = getIntent();
         user = (user)intent.getSerializableExtra("USER");
         FirebaseHelper fb ;
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
+        cekOnChart();
         mAdapter = new full_body_adapter(list_hnb,fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
@@ -48,25 +43,26 @@ public class hand_n_foot extends AppCompatActivity {
         // specify an adapter (see also next example)
         recyclerView.setAdapter(mAdapter);
     }
+    void cekOnChart(){
+        for(int i=0;i<list_hnb.size();i++){
+            if(GLOBAL.carts.contains(list_hnb.get(i))){
+                list_hnb.get(i).isOnChart = true;
+            }else{
+                list_hnb.get(i).isOnChart = false;
+            }
+        }
+    }
     public void onBackPressed(){
-/*        user = mAdapter.getUser();
-        Log.e("USERM", user.getEmail());
-        i = new Intent();
-        i.putExtra("UID", user.getUID());
-        i.putExtra("USER", user);
-        setResult(RESULT_OK, i);
-        finish();
-*/
         finish();
     }
     void dataHnB(){
         Log.d("M", "Added");
-        list_hnb.add(new full_body_obj("Manicure", 50000));
-        list_hnb.add(new full_body_obj("Pedicure", 50000));
-        list_hnb.add(new full_body_obj("Waxing Kaki", 100000));
-        list_hnb.add(new full_body_obj("Waxing Tangan", 80000));
-        list_hnb.add(new full_body_obj("Waxing Ketiak", 65000));
-        list_hnb.add(new full_body_obj("Nail Art", 30000));
-        list_hnb.add(new full_body_obj("Refelexiologi", 50000));
+        list_hnb.add(new Cart("Manicure", 50000));
+        list_hnb.add(new Cart("Pedicure", 50000));
+        list_hnb.add(new Cart("Waxing Kaki", 100000));
+        list_hnb.add(new Cart("Waxing Tangan", 80000));
+        list_hnb.add(new Cart("Waxing Ketiak", 65000));
+        list_hnb.add(new Cart("Nail Art", 30000));
+        list_hnb.add(new Cart("Refelexiologi", 50000));
     }
 }

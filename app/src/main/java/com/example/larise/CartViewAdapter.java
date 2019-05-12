@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.rv_cart_ViewHolder>{
-    private ArrayList<pesanan_obj> pesanan;
-    public CartViewAdapter(ArrayList<pesanan_obj> cart){
+    private ArrayList<Cart> pesanan;
+    public CartViewAdapter(ArrayList<Cart> cart){
         this.pesanan = cart;
 
     }

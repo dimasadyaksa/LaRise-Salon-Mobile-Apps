@@ -1,9 +1,8 @@
 package com.example.larise;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -14,31 +13,16 @@ public class user implements Serializable {
     private String nomorhp;
     private String Password;
     private String tglDaftar;
-    
-    private ArrayList<cart> cart;
+    private ArrayList<PesananObjek> pesananObjek;
+    private double lat;
+    private double lng;
     private String catatan;
-    private LatLng l;
+
     public user(){
 
     }
 
     public user(String UID, String nama, String email, String nomorhp, String password) {
-    public user(LatLng l, String catatan){
-        this.l = l;
-        this.catatan = catatan;
-    }
-
-    public user(String UID, String nama, String email, String nomorhp, String password, String tglDaftar, ArrayList<com.example.larise.cart> cart) {
-        this.UID = UID;
-        Nama = nama;
-        Email = email;
-        this.nomorhp = nomorhp;
-        Password = password;
-        this.tglDaftar = tglDaftar;
-        this.cart = cart;
-    }
-
-    public user(String UID, String nama, String email, String nomorhp, String password, String tglDaftar) {
         this.UID = UID;
         Nama = nama;
         Email = email;

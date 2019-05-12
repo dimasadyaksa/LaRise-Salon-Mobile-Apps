@@ -1,9 +1,5 @@
 package com.example.larise;
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -12,7 +8,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.larise.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,6 +44,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     LocationManager locationManager;
     private user user;
+    private PesananObjek pesananObjek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,11 +134,14 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     public void addDb(LatLng l){
         String ctt = findViewById(R.id.catatan).toString().trim();
-        user = new user(l, ctt);
+        pesananObjek = new PesananObjek();
+        pesananObjek.setLatitude(1);
+        pesananObjek.setLongitude(2);
+        pesananObjek.setCatatan(ctt);
         db = FirebaseDatabase.getInstance().getReference();
         Query a = db.limitToLast(1);
         String x = db.child("pesanan").child("ADYtRlOHV5ODGoebM8iGCHN1tjG3").limitToLast(1).toString();
         Log.e("DATA",x);
-        db.child("pesanan").child("ADYtRlOHV5ODGoebM8iGCHN1tjG3").child(x).setValue(user);
+        db.child("pesanan").child("ADYtRlOHV5ODGoebM8iGCHN1tjG3").child(x).setValue(pesananObjek);
     }
 }

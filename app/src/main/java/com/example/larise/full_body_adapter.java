@@ -1,26 +1,22 @@
 package com.example.larise;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.util.ArrayList;
 
 public class full_body_adapter extends RecyclerView.Adapter<full_body_adapter.rv_order_ViewHolder> {
-    private ArrayList<pesanan_obj> mDataset;
+    private ArrayList<Cart> mDataset;
     private user user;
     private FirebaseHelper fb;
 
-    public full_body_adapter(ArrayList<pesanan_obj> mDataset,FirebaseHelper fb){
+    public full_body_adapter(ArrayList<Cart> mDataset, FirebaseHelper fb){
         this.mDataset = mDataset;
         this.fb = fb;
     }
@@ -38,31 +34,27 @@ public class full_body_adapter extends RecyclerView.Adapter<full_body_adapter.rv
     }
 
     @Override
-    public void onBindViewHolder(full_body_adapter.rv_order_ViewHolder holder, final int position) {
+    public void onBindViewHolder(final full_body_adapter.rv_order_ViewHolder holder, final int position) {
+        Cart Cart = new Cart(mDataset.get(position).getNama(),mDataset.get(position).getBiaya());
         holder.txtPesanan.setText(mDataset.get(position).getNama());
         holder.txtBiaya.setText(String.valueOf(mDataset.get(position).getBiaya()));
-        holder.add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final pesanan_obj pesanan_obj = new pesanan_obj(mDataset.get(position).getNama(),mDataset.get(position).getBiaya());
-                GLOBAL.pesanans.add(pesanan_obj);
-                final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        fb.sendPesanan(pesanan_obj);
-                        source.setResult("DONE");
-                    }
-                }).start();
-                Task<String> task = source.getTask();
-                task.addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        user = fb.getUs();
-                    }
-                });
 
+        holder.add.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                event.
+                if(!mDataset.get(position).isOnChart){
+                    GLOBAL.tambahCart(mDataset.get(position));
+                    holder.add.setText("Hapus");
+                    mDataset.get(position).isOnChart = true;
+                }else{
+                    GLOBAL.hapusCart(mDataset.get(position));
+                    holder.add.setText("Tambah");
+                    mDataset.get(position).isOnChart = false;
+                }
+                return false;
             }
+
         });
 
     }

@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class rv_pesanan_adapter extends RecyclerView.Adapter<rv_pesanan_adapter.rv_order_ViewHolder> {
 
-  private ArrayList<pesanan_obj> pesanan;
+  private ArrayList<Cart> pesanan;
 
-  public rv_pesanan_adapter(ArrayList<pesanan_obj> pesanan){
+  public rv_pesanan_adapter(ArrayList<Cart> pesanan){
     this.pesanan = pesanan;
   }
 

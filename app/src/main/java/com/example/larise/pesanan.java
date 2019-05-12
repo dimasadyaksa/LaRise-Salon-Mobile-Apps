@@ -1,7 +1,6 @@
 package com.example.larise;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 
 public class pesanan extends Fragment  {
 
-  private ArrayList<Cart> pesanans;
+  private ArrayList<PesananObjek> pesanans;
 
   public pesanan() {
   }
@@ -31,8 +30,7 @@ public class pesanan extends Fragment  {
                            Bundle savedInstanceState) {
     View fView = inflater.inflate(R.layout.fragment_pesanan, container, false);
     pesanans = new ArrayList<>();
-    addData();
-    rv_cart_adapter adapter = new rv_cart_adapter(GLOBAL.carts);
+    rv_cart_adapter adapter = new rv_cart_adapter(GLOBAL.pesananObjeks);
     RecyclerView recyclerView = (RecyclerView) fView.findViewById(R.id.rv_pesanan);
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setHasFixedSize(true);
@@ -41,13 +39,4 @@ public class pesanan extends Fragment  {
     return fView;
   }
 
-
-  void addData(){
-    Log.d("M", "Added");
-    pesanans.add(new Cart( "OK", 23,3));
-    pesanans.add(new Cart( "OK", 2,33));
-    pesanans.add(new Cart( "NO", 62,3));
-    pesanans.add(new Cart( "NO", 22,3));
-    pesanans.add(new Cart( "OK", 2,32));
-  }
 }

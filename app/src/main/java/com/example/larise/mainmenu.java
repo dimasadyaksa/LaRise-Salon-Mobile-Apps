@@ -26,7 +26,7 @@ public class mainmenu extends AppCompatActivity {
     FragmentPagerAdapter adapterViewPager;
     private user user;
     private TabLayout tabLayout;
-    private Cart data;
+    private PesananObjek data;
     private String UID;
     private FirebaseHelper fb;
     private ProgressDialog pd;
@@ -85,6 +85,8 @@ public class mainmenu extends AppCompatActivity {
 
         Intent intent = getIntent();
         UID = intent.getStringExtra("UID");
+
+        GLOBAL.setListener(UID);
         pd.setMessage("Loading");
         pd.show();
         pd.setCanceledOnTouchOutside(false);
@@ -92,12 +94,8 @@ public class mainmenu extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                fb = new FirebaseHelper();
-                fb.setUid(UID);
-                fb.getDB();
-                data = fb.downloadCart();
-
-                source.setResult(fb.getUs());
+                GLOBAL.init(UID);
+                source.setResult(GLOBAL.user);
             }
         }).start();
         Task<user> task = source.getTask();

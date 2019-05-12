@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class rv_cart_adapter extends RecyclerView.Adapter<rv_cart_adapter.rv_order_ViewHolder> {
 
-  private ArrayList<Cart> cart;
+  private ArrayList<PesananObjek> pesananObjek;
 
-  public rv_cart_adapter(ArrayList<Cart> cart){
-    this.cart = cart;
+  public rv_cart_adapter(ArrayList<PesananObjek> pesananObjek){
+    this.pesananObjek = pesananObjek;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class rv_cart_adapter extends RecyclerView.Adapter<rv_cart_adapter.rv_ord
 
   @Override
   public void onBindViewHolder(rv_order_ViewHolder holder, int position) {
-    holder.txtid.setText(cart.get(position).getId());
-    holder.txtBiaya.setText(String.valueOf(cart.get(position).getTotal()));
-    holder.txtStatus.setText(cart.get(position).getStatus());
+    holder.txtid.setText(pesananObjek.get(position).getId());
+    holder.txtBiaya.setText(String.valueOf(pesananObjek.get(position).getTotal()));
+    holder.txtStatus.setText(pesananObjek.get(position).getStatus());
   }
 
 
   @Override
   public int getItemCount() {
 
-    return (cart!=null) ? cart.size():0;
+    return (pesananObjek !=null) ? pesananObjek.size():0;
   }
 
   public class rv_order_ViewHolder extends RecyclerView.ViewHolder{
