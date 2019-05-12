@@ -1,24 +1,23 @@
 package com.example.larise;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,11 @@ public class mainmenu extends AppCompatActivity {
     FragmentPagerAdapter adapterViewPager;
     private user user;
     private TabLayout tabLayout;
+    private Cart data;
     private String UID;
     private FirebaseHelper fb;
     private ProgressDialog pd;
+    private ImageView cart;
     ViewPager vpPager;
     ImageView imgA;
     ImageView imgB;
@@ -71,23 +72,22 @@ public class mainmenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
         pd = new ProgressDialog(mainmenu.this);
-
         vpPager = findViewById(R.id.vpager);
-        pd = new ProgressDialog(mainmenu.this);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        cart = new ImageView(this);
+        cart = findViewById(R.id.cart_icon);
         imgA = new ImageView(mainmenu.this);
         imgB = new ImageView(mainmenu.this);
         imgC = new ImageView(mainmenu.this);
         imgD = new ImageView(mainmenu.this);
         tabLayout.setupWithViewPager(vpPager);
+        user = new user();
 
         Intent intent = getIntent();
         UID = intent.getStringExtra("UID");
-        Log.e("MAINMENU",UID );
         pd.setMessage("Loading");
         pd.show();
         pd.setCanceledOnTouchOutside(false);
-
         final TaskCompletionSource<user> source = new TaskCompletionSource<>();
         new Thread(new Runnable() {
             @Override
@@ -95,6 +95,8 @@ public class mainmenu extends AppCompatActivity {
                 fb = new FirebaseHelper();
                 fb.setUid(UID);
                 fb.getDB();
+                data = fb.downloadCart();
+
                 source.setResult(fb.getUs());
             }
         }).start();
@@ -102,14 +104,25 @@ public class mainmenu extends AppCompatActivity {
         task.addOnCompleteListener(new OnCompleteListener<com.example.larise.user>() {
             @Override
             public void onComplete(@NonNull Task<com.example.larise.user> task) {
-                addTabs(vpPager);
-                setupTabIcons();
+				Log.e("NNAMA", GLOBAL.user.getNama());
+				cart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent goToNextActivity = new Intent(mainmenu.this, CartView.class);
+                        goToNextActivity.putExtra("USER", user);
+                        startActivityForResult(goToNextActivity,1);
+
+                    }
+                });
+				addTabs(vpPager);
+				setupTabIcons();
                 if(pd.isShowing()){
                     pd.dismiss();
                     pd.hide();
                 }
             }
         });
+
 
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -198,11 +211,21 @@ public class mainmenu extends AppCompatActivity {
             }
         });
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                user  = (user)data.getSerializableExtra("USER");
+            }
+        }
+    }
     private void addTabs(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new menu(), "Menu");
+        Fragment prof = profil.newInstance(UID,GLOBAL.user.getNama(),GLOBAL.user.getEmail(),GLOBAL.user.getNomorhp());
+        Fragment men = menu.newInstance(GLOBAL.user,fb);
+        adapter.addFrag(men, "Menu");
         adapter.addFrag(new pesanan(), "Pesanan");
-        Fragment prof = profil.newInstance(UID,fb.getUs().getNama(),fb.getUs().getEmail(),fb.getUs().getNomorhp());
         adapter.addFrag(prof, "Profil");
         adapter.addFrag(new pengaturan(), "Pengaturan");
         viewPager.setAdapter(adapter);

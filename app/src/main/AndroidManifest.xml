@@ -38,14 +38,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".cartView"
+            android:name=".CartView"
             android:label="@string/title_activity_cart_view" />
         <activity
             android:name=".register"
             android:label="@string/title_activity_register" />
         <activity
             android:name=".full_body"
-            android:label="@string/title_activity_full_body"></activity>
+            android:label="@string/title_activity_full_body"/>
         <activity
             android:name=".face_treatment"
             android:label="@string/title_activity_facetreatment">

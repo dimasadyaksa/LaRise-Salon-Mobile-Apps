@@ -1,10 +1,9 @@
 package com.example.larise;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.text.SimpleDateFormat;
 
 public class user implements Serializable {
     private String UID;
@@ -13,38 +12,18 @@ public class user implements Serializable {
     private String nomorhp;
     private String Password;
     private String tglDaftar;
-    private ArrayList<cart> cart;
-
+    
     public user(){
 
     }
 
-    public user(String UID, String nama, String email, String nomorhp, String password, String tglDaftar, ArrayList<com.example.larise.cart> cart) {
+    public user(String UID, String nama, String email, String nomorhp, String password) {
         this.UID = UID;
         Nama = nama;
         Email = email;
         this.nomorhp = nomorhp;
         Password = password;
-        this.tglDaftar = tglDaftar;
-        this.cart = cart;
-    }
-
-    public user(String UID, String nama, String email, String nomorhp, String password, String tglDaftar) {
-        this.UID = UID;
-        Nama = nama;
-        Email = email;
-        this.nomorhp = nomorhp;
-        Password = password;
-        this.tglDaftar = tglDaftar;
-    }
-
-    public user(String nama, String email, String nomorhp, String password, String uid) {
-        this.UID = uid;
         this.tglDaftar = generateLast();
-        Nama = nama;
-        Email = email;
-        this.nomorhp = nomorhp;
-        Password = password;
     }
 
     public String getNama() {
@@ -97,15 +76,6 @@ public class user implements Serializable {
         Password = password;
     }
 
-    public ArrayList<com.example.larise.cart> getCart() {
-        return cart;
-    }
 
-    public void setCart(ArrayList<com.example.larise.cart> cart) {
-        this.cart = cart;
-    }
 
-    public void addCart(cart cart){
-        this.cart.add(cart);
-    }
 }

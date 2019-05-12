@@ -13,6 +13,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="order_cancel">Batal</string>
+    <string name="orderButton">Pesan</string>
+    <string name="harga_total">Rp. 500.000</string>
+    <string name="total_cart">Total : </string>
     <string name="namaLabel">Nama Lengkap</string>
     <string name="emailLabel">Email</string>
     <string name="phoneLabel">Nomor HP</string>

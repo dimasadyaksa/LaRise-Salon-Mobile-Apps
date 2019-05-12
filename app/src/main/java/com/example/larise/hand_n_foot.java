@@ -1,21 +1,22 @@
 package com.example.larise;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.ArrayList;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class hand_n_foot extends Activity {
-    private ArrayList<full_body_obj> list_hnb;
+import java.util.ArrayList;
 
+public class hand_n_foot extends AppCompatActivity {
+    private ArrayList<pesanan_obj> list_hnb;
+    private Intent i;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private full_body_adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
+    private user user;
     public hand_n_foot(){
     }
 
@@ -29,8 +30,11 @@ public class hand_n_foot extends Activity {
         // in content do not change the layout size of the RecyclerView
         list_hnb = new ArrayList<>();
         dataHnB();
-
-        full_body_adapter adapter = new full_body_adapter(list_hnb);
+        Intent intent = getIntent();
+        user = (user)intent.getSerializableExtra("USER");
+        FirebaseHelper fb ;
+        fb = (FirebaseHelper)intent.getSerializableExtra("FB");
+        mAdapter = new full_body_adapter(list_hnb,fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
@@ -38,15 +42,25 @@ public class hand_n_foot extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
     }
-
+    public void onBackPressed(){
+/*        user = mAdapter.getUser();
+        Log.e("USERM", user.getEmail());
+        i = new Intent();
+        i.putExtra("UID", user.getUID());
+        i.putExtra("USER", user);
+        setResult(RESULT_OK, i);
+        finish();
+*/
+        finish();
+    }
     void dataHnB(){
         Log.d("M", "Added");
-        list_hnb.add(new full_body_obj("HnB Treatment A", 101200));
-        list_hnb.add(new full_body_obj("HnB Treatment B", 10200));
-        list_hnb.add(new full_body_obj("HnB Treatment C", 112));
-        list_hnb.add(new full_body_obj("HnB Treatment C", 102200));
-        list_hnb.add(new full_body_obj("HnB Treatment D", 11200));
+        list_hnb.add(new pesanan_obj("HnB Treatment A", 101200));
+        list_hnb.add(new pesanan_obj("HnB Treatment B", 10200));
+        list_hnb.add(new pesanan_obj("HnB Treatment C", 112));
+        list_hnb.add(new pesanan_obj("HnB Treatment C", 102200));
+        list_hnb.add(new pesanan_obj("HnB Treatment D", 11200));
     }
 }

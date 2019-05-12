@@ -1,13 +1,12 @@
 package com.example.larise;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 
 public class profil extends Fragment {
@@ -38,7 +37,6 @@ public class profil extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-
         Bundle args = getArguments();
         fview = inflater.inflate(R.layout.fragment_profil, container, false);
         final TextView nama = fview.findViewById(R.id.namaProfil);
@@ -51,7 +49,7 @@ public class profil extends Fragment {
             this.nohp = args.getString("nohp");
 
         }
-        nama.setText(this.nama);
+        nama.setText(GLOBAL.user.getNama());
         email.setText(this.email);
         phone.setText(this.nohp);
         return fview;
