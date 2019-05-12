@@ -7,8 +7,9 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
+public class face_treatment extends AppCompatActivity {
+    private ArrayList<full_body_obj> list_face;
 
 public class face_treatment extends AppCompatActivity {
     private ArrayList<pesanan_obj> list_face;
@@ -46,11 +47,17 @@ public class face_treatment extends AppCompatActivity {
     }
     void dataFaceT(){
         Log.d("M", "Added");
-        list_face.add(new pesanan_obj("Face Treatment A", 101200));
-        list_face.add(new pesanan_obj("Face Treatment B", 10200));
-        list_face.add(new pesanan_obj("Face Treatment C", 112));
-        list_face.add(new pesanan_obj("Face Treatment C", 102200));
-        list_face.add(new pesanan_obj("Face Treatment D", 11200));
+        list_face.add(new full_body_obj("Setrika Wajah", 200000));
+        list_face.add(new full_body_obj("Facial Biokos", 80000));
+        list_face.add(new full_body_obj("Facial La Tulipe", 70000));
+        list_face.add(new full_body_obj("Totok Wajah", 50000));
+        list_face.add(new full_body_obj("Perawatan Kantung Mata", 60000));
+        list_face.add(new full_body_obj("Ear Candle", 40000));
+        list_face.add(new full_body_obj("Keriting Bulu Mata", 45000));
+        list_face.add(new full_body_obj("Bentuk Alis", 10000));
+        list_face.add(new full_body_obj("Make Up", 100000));
+        list_face.add(new full_body_obj("Tanam Bulu Mata", 150000));
+        list_face.add(new full_body_obj("Facial Jafra", 110000));
     }
 
 }

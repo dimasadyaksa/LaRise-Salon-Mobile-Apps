@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 
 public class hour_treatment extends AppCompatActivity {
     private ArrayList<pesanan_obj> list_hour;
+public class hour_treatment extends AppCompatActivity {
+    private ArrayList<full_body_obj> list_hour;
 
     private RecyclerView recyclerView;
     private full_body_adapter mAdapter;
@@ -59,10 +63,14 @@ public class hour_treatment extends AppCompatActivity {
     }
     void dataHourT(){
         Log.d("M", "Added");
-        list_hour.add(new pesanan_obj("Hour Treatment A", 101200));
-        list_hour.add(new pesanan_obj("Hour Treatment B", 10200));
-        list_hour.add(new pesanan_obj("Hour Treatment C", 112));
-        list_hour.add(new pesanan_obj("Hour Treatment C", 102200));
-        list_hour.add(new pesanan_obj("Hour Treatment D", 11200));
+        list_hour.add(new full_body_obj("Creambath", 40000));
+        list_hour.add(new full_body_obj("Hair Mask", 45000));
+        list_hour.add(new full_body_obj("Hair Spa", 45000));
+        list_hour.add(new full_body_obj("Hair Color", 100000));
+        list_hour.add(new full_body_obj("Smoothing", 150000));
+        list_hour.add(new full_body_obj("Gunting", 25000));
+        list_hour.add(new full_body_obj("Cuci Rambot", 15000));
+        list_hour.add(new full_body_obj("Catok", 25000));
+        list_hour.add(new full_body_obj("Curly", 30000));
     }
 }

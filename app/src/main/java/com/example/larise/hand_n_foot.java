@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+public class hand_n_foot extends AppCompatActivity {
+    private ArrayList<full_body_obj> list_hnb;
 
 public class hand_n_foot extends AppCompatActivity {
     private ArrayList<pesanan_obj> list_hnb;
@@ -57,10 +61,12 @@ public class hand_n_foot extends AppCompatActivity {
     }
     void dataHnB(){
         Log.d("M", "Added");
-        list_hnb.add(new pesanan_obj("HnB Treatment A", 101200));
-        list_hnb.add(new pesanan_obj("HnB Treatment B", 10200));
-        list_hnb.add(new pesanan_obj("HnB Treatment C", 112));
-        list_hnb.add(new pesanan_obj("HnB Treatment C", 102200));
-        list_hnb.add(new pesanan_obj("HnB Treatment D", 11200));
+        list_hnb.add(new full_body_obj("Manicure", 50000));
+        list_hnb.add(new full_body_obj("Pedicure", 50000));
+        list_hnb.add(new full_body_obj("Waxing Kaki", 100000));
+        list_hnb.add(new full_body_obj("Waxing Tangan", 80000));
+        list_hnb.add(new full_body_obj("Waxing Ketiak", 65000));
+        list_hnb.add(new full_body_obj("Nail Art", 30000));
+        list_hnb.add(new full_body_obj("Refelexiologi", 50000));
     }
 }
