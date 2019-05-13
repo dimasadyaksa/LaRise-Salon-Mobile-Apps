@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-180dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/background" />
+            app:srcCompat="@drawable/user" />
 
         <ImageView
             android:id="@+id/photoProfil"
