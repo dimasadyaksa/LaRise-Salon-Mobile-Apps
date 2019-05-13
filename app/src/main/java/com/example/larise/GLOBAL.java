@@ -19,6 +19,7 @@ public class GLOBAL {
 	public static ArrayList<Cart> carts = new ArrayList<>();
 	public static FirebaseHelper fb = new FirebaseHelper();
     public static DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+
 	public static void setListener(final String uid){
 
 		Log.e("SET LISTENER", "TRUE");
@@ -32,7 +33,6 @@ public class GLOBAL {
 			@Override
 			public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 				Log.e("PESANAN LISTEN CHANGE", "Change");
-				pesananObjeks.add(dataSnapshot.getValue(PesananObjek.class));
 			}
 
 			@Override
@@ -62,7 +62,6 @@ public class GLOBAL {
 			@Override
 			public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 				Log.e("CART LISTEN Changed", "CHANGE");
-				carts.add(dataSnapshot.getValue(Cart.class));
 			}
 
 			@Override

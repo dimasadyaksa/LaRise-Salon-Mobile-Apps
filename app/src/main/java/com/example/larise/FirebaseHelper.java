@@ -37,23 +37,6 @@ public class FirebaseHelper implements Serializable {
         return pesananObjeks;
     }
 
-    public void tes(){
-        ArrayList<Cart> Carts = new ArrayList<>();
-        PesananObjek pesananObjek = new PesananObjek();
-        pesananObjek.setId();
-        pesananObjek.setLatitude(2);
-        pesananObjek.setLongitude(2);
-        pesananObjek.setStatus("WAIT");
-        pesananObjek.setTotal(1000);
-        Carts.add(new Cart("wr4qwaw", 414));
-        Carts.add(new Cart("wrqwaw", 41422));
-        Carts.add(new Cart("wrqwaw", 411424));
-        Carts.add(new Cart("wrqwfaw", 4141221));
-        Carts.add(new Cart("wfwwrqw", 41114));
-        pesananObjek.setPesanan(Carts);
-        db = FirebaseDatabase.getInstance().getReference();
-        db.child("pesanan").child(uid).child(pesananObjek.getId()).setValue(pesananObjek);
-    }
 	public void downloadCart(){
 		final Semaphore semaphore = new Semaphore(0);
 		GLOBAL.carts.clear();
@@ -109,12 +92,13 @@ public class FirebaseHelper implements Serializable {
     public void sendCart(Cart p){
         Log.e("FBSEND CART", "TRUE");
         DatabaseReference db;
+        GLOBAL.carts.add(p);
         db = FirebaseDatabase.getInstance().getReference();
         p.no = "No - "+(GLOBAL.carts.size()+1);
         db.child("Cart").child(GLOBAL.user.getUID()).child("No - "+(GLOBAL.carts.size()+1)).setValue(p);
     }
     public void sendPesanan(final PesananObjek p){
-        Log.e("FBSEND CART", "TRUE");
+        Log.e("FBSEND Pesanan", "TRUE");
         DatabaseReference db;
         db = FirebaseDatabase.getInstance().getReference();
         db.child("pesanan").child(uid).child(p.getId()).setValue(p);

@@ -14,7 +14,6 @@ public class hour_treatment extends AppCompatActivity {
     private ArrayList<Cart> list_hour;
 
     private RecyclerView recyclerView;
-    private full_body_adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Intent i;
     private user user;
@@ -33,14 +32,13 @@ public class hour_treatment extends AppCompatActivity {
         user = (user)intent.getSerializableExtra("USER");
         FirebaseHelper fb ;
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        mAdapter = new full_body_adapter(list_hour,fb);
+
+        full_body_adapter mAdapter;
+        mAdapter= new full_body_adapter(list_hour, fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
-        // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
         recyclerView.setAdapter(mAdapter);
     }
 

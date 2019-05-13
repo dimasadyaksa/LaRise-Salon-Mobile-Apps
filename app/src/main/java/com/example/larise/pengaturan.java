@@ -1,21 +1,16 @@
 package com.example.larise;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link pengaturan.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link pengaturan#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class pengaturan extends Fragment {
 
     public pengaturan() {
@@ -37,8 +32,21 @@ public class pengaturan extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pengaturan, container, false);
+        View fview = inflater.inflate(R.layout.fragment_pengaturan, container, false);
+        SharedPreferences mSettings = getActivity().getSharedPreferences("userdata", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mSettings.edit();
+        TextView logout = fview.findViewById(R.id.LogoutSetting);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString("email", "missing");
+                editor.putString("password", "missing");
+                editor.putString("UID", "misssing");
+                editor.apply();
+                startActivity(new Intent(getActivity(),login.class));
+            }
+        });
+        return fview;
     }
 
 }

@@ -14,7 +14,6 @@ public class hand_n_foot extends AppCompatActivity {
     private ArrayList<Cart> list_hnb;
     private Intent i;
     private RecyclerView recyclerView;
-    private full_body_adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private user user;
     public hand_n_foot(){
@@ -32,14 +31,11 @@ public class hand_n_foot extends AppCompatActivity {
         user = (user)intent.getSerializableExtra("USER");
         FirebaseHelper fb ;
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        mAdapter = new full_body_adapter(list_hnb,fb);
+        full_body_adapter mAdapter = new full_body_adapter(list_hnb, fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
-        // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
         recyclerView.setAdapter(mAdapter);
     }
 

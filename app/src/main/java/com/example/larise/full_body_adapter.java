@@ -1,7 +1,7 @@
 package com.example.larise;
 
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -35,22 +35,31 @@ public class full_body_adapter extends RecyclerView.Adapter<full_body_adapter.rv
 
         return new rv_order_ViewHolder(view);
     }
-
     @Override
-    public void onBindViewHolder(final full_body_adapter.rv_order_ViewHolder holder, int position) {
-        Cart = new Cart(mDataset.get(position).getNama(),mDataset.get(position).getBiaya());
-        Cart.isOnChart = mDataset.get(position).isOnChart;
-        holder.txtPesanan.setText(mDataset.get(position).getNama());
+    public int getItemViewType(int position) {
+        return position;
+    }
+    @Override
+    public void onBindViewHolder(final full_body_adapter.rv_order_ViewHolder holder, final int position) {
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        format.setCurrency(Currency.getInstance("Rp. "));
-        String result = format.format(Cart.getBiaya());
+        format.setCurrency(Currency.getInstance("IDR"));
+        String result = format.format(mDataset.get(getItemViewType(position)).getBiaya());
+        holder.txtPesanan.setText(mDataset.get(getItemViewType(position)).getNama());
         holder.txtBiaya.setText(result);
-        holder.add.setOnTouchListener(new View.OnTouchListener() {
+        holder.add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("DATA Tambah", mDataset.get(getItemViewType(position)).getNama()+"-"+position);
+                GLOBAL.tambahCart(mDataset.get(getItemViewType(position)));
+            }
+/*
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                Log.e("ADD", Cart.getNama());
                     GLOBAL.tambahCart(Cart);
                 return false;
             }
+            */
 
         });
 

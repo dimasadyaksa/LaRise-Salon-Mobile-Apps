@@ -1,5 +1,8 @@
 package com.example.larise;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -91,7 +95,7 @@ public class mainmenu extends AppCompatActivity {
             GLOBAL.setListener(GLOBAL.user.getUID());
             UID = GLOBAL.user.getUID();
         }
-
+        showNotification();
         pd.setMessage("Loading");
         pd.show();
         pd.setCanceledOnTouchOutside(false);
@@ -219,7 +223,12 @@ public class mainmenu extends AppCompatActivity {
 
 
     }
-
+    public void onBackPressed(){
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
@@ -232,10 +241,11 @@ public class mainmenu extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         Fragment prof = profil.newInstance(UID,GLOBAL.user.getNama(),GLOBAL.user.getEmail(),GLOBAL.user.getNomorhp());
         Fragment men = menu.newInstance(GLOBAL.user,fb);
+        Fragment peng = pengaturan.newInstance();
         adapter.addFrag(men, "Menu");
         adapter.addFrag(new pesanan(), "Pesanan");
         adapter.addFrag(prof, "Profil");
-        adapter.addFrag(new pengaturan(), "Pengaturan");
+        adapter.addFrag(peng, "Pengaturan");
         viewPager.setAdapter(adapter);
     }
 
@@ -246,7 +256,20 @@ public class mainmenu extends AppCompatActivity {
     public void setUID(String UID) {
         this.UID = UID;
     }
+    public void showNotification() {
+        PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, mainmenu.class), 0);
+        Notification notification = new NotificationCompat.Builder(this)
+                .setTicker("INI NOTIFICATION COK")
+                .setSmallIcon(android.R.drawable.stat_notify_chat)
+                .setContentTitle("INI NOTIFICATION COK")
+                .setContentText("INI NOTIFICATION COK")
+                .setContentIntent(pi)
+                .setAutoCancel(true)
+                .build();
 
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

@@ -14,7 +14,6 @@ public class face_treatment extends AppCompatActivity {
     private user user;
     private Intent i;
     private RecyclerView recyclerView;
-    private full_body_adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     public face_treatment(){
@@ -31,7 +30,8 @@ public class face_treatment extends AppCompatActivity {
         user = (user)intent.getSerializableExtra("USER");
         FirebaseHelper fb ;
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        mAdapter = new full_body_adapter(list_face,fb);
+        full_body_adapter mAdapter;
+        mAdapter= new full_body_adapter(list_face, fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

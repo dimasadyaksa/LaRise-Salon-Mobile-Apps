@@ -41,7 +41,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.List;
@@ -86,6 +85,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                         mMap.clear();
                         LatLng l = new LatLng(lat, lang);
                         markerOptions.position(l);
+                        Alamat = getAlamat(new LatLng(lat, lang));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(l, 18));
                         mMap.addMarker(markerOptions);
                     }
@@ -97,11 +97,12 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         checkout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
-                format.setCurrency(Currency.getInstance("ID"));
-                String result = format.format(Integer.toString(intent.getIntExtra("TOTAL", 0)));
+                format.setCurrency(Currency.getInstance("IDR"));
+                String result = format.format(intent.getIntExtra("TOTAL", 0));
                 alertDialog.setTitle("Alert");
-                alertDialog.setMessage("Total Biaya : "+result+"\nDikirim ke Alamat : "+getAlamat(new LatLng(lat, lang)));
+                alertDialog.setMessage("Total Biaya : "+result+"\nDikirim ke Alamat : "+Alamat);
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "BATAL",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -115,7 +116,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                                 EditText c = findViewById(R.id.catatan);
                                 String ctt = c.getText().toString();
                                 progressDialog.show();
-                                pesananObjek.Alamat = getAlamat(new LatLng(lat, lang));
+                                pesananObjek.Alamat = Alamat;
                                 pesananObjek.setPesanan(GLOBAL.carts);
                                 pesananObjek.setLatitude(lat);
                                 pesananObjek.setLongitude(lang);
@@ -217,7 +218,6 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-        progressDialog.show();
 
         fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
@@ -241,7 +241,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                 lang = latLng.longitude;
                 markerOptions.position(latLng);
                 mMap.addMarker(markerOptions);
-                getAlamat(latLng);
+               Alamat= getAlamat(latLng);
             }
         });
     }
@@ -251,12 +251,28 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             addresses = geocoder.getFromLocation(l.latitude, l.longitude, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Toast.makeText(MapsActivity.this, "Gagal Mendapatkan Lokasi, Periksa koneksi anda.",
+                    Toast.LENGTH_SHORT).show();
+            AlertDialog alertDialog = new AlertDialog.Builder(MapsActivity.this).create();
+            alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
         }
-        for (int i=0;i<addresses.size();i++){
-            s+=addresses.get(i).getAddressLine(i);
+        if (addresses!=null){
+            for (int i=0;i<addresses.size();i++){
+                s+=addresses.get(i).getAddressLine(i);
+            }
+        }else {
+            s = "Tidak dapat menentukan lokasi";
+            Toast.makeText(MapsActivity.this, s,
+                    Toast.LENGTH_SHORT).show();
         }
+
         return s;
     }
 

@@ -13,7 +13,6 @@ public class full_body extends AppCompatActivity {
     private ArrayList<Cart> list_full_body;
     private user user;
     private RecyclerView recyclerView;
-    private full_body_adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Intent i;
     private FirebaseHelper fb;
@@ -30,13 +29,13 @@ public class full_body extends AppCompatActivity {
         Intent intent = getIntent();
         user = (user)intent.getSerializableExtra("USER");
         fb = (FirebaseHelper)intent.getSerializableExtra("FB");
-        mAdapter = new full_body_adapter(list_full_body,fb);
+        full_body_adapter mAdapter = new full_body_adapter(list_full_body, fb);
         recyclerView = findViewById(R.id.full_body_rv);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.swapAdapter(mAdapter,false);
+        recyclerView.setAdapter(mAdapter);
     }
     public void onBackPressed(){
 

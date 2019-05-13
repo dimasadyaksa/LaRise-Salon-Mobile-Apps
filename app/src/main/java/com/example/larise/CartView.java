@@ -3,6 +3,7 @@ package com.example.larise;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,12 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 public class CartView extends AppCompatActivity {
     private ArrayList<Cart> list_pesanan;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseHelper fb;
     private Intent i;
@@ -55,13 +58,30 @@ public class CartView extends AppCompatActivity {
 			pd.dismiss();
 
 		}
+
 		recyclerView = findViewById(R.id.rv_cart);
 		recyclerView.setHasFixedSize(true);
 		layoutManager = new LinearLayoutManager(this);
 		recyclerView.setLayoutManager(layoutManager);
 		adapter = new CartViewAdapter(GLOBAL.carts);
-		recyclerView.swapAdapter(adapter,false);
-		cost.setText(Integer.toString(cost()));
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                cost();
+
+                adapter.notifyItemRangeChanged(0, GLOBAL.carts.size());
+                adapter.notifyDataSetChanged();
+            }
+        });
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        format.setCurrency(Currency.getInstance("IDR"));
+        String result = format.format(cost());
+        cost.setText(result);
+        adapter.setCost(cost);
+        adapter.setPesan(Pesan);
+		recyclerView.swapAdapter(adapter,true);
+		recyclerView.smoothScrollToPosition(GLOBAL.carts.size()/2);
+
         i.putExtra("USER", user);
 
     }

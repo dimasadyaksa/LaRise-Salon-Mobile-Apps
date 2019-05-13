@@ -1,7 +1,9 @@
 package com.example.larise;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,10 +69,18 @@ public class login extends AppCompatActivity {
         });
 
     }
+    public void onBackPressed(){
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
 
     public void signIn(){
-        String email = this.email.getText().toString();
-        String password = this.password.getText().toString();
+        SharedPreferences mSettings = this.getSharedPreferences("userdata", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mSettings.edit();
+        final String email = this.email.getText().toString();
+        final String password = this.password.getText().toString();
         pd.setMessage("Logging In");
         pd.show();
         mAuth.signInWithEmailAndPassword(email,password)
@@ -83,7 +93,10 @@ public class login extends AppCompatActivity {
                             uid = mAuth.getUid();
                             Toast.makeText(login.this, "Authentication Succeded.",
                                     Toast.LENGTH_SHORT).show();
-
+                            editor.putString("email", email);
+                            editor.putString("password", password);
+                            editor.putString("UID", uid);
+                            editor.apply();
                             Intent goToNextActivity = new Intent(login.this, mainmenu.class);
 
                             goToNextActivity.putExtra("UID",uid );
@@ -96,6 +109,9 @@ public class login extends AppCompatActivity {
                         }else{
                             Toast.makeText(login.this, "USERNAME ATAU PASSWORD SALAH",
                                     Toast.LENGTH_SHORT).show();
+                            if(pd.isShowing()){
+                                pd.dismiss();
+                            }
                         }
                     }
                 });
