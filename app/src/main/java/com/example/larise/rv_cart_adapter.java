@@ -37,13 +37,7 @@ public class rv_cart_adapter extends RecyclerView.Adapter<rv_cart_adapter.rv_ord
       holder.txtid.setText(pesananObjek.get(position).getId());
       holder.txtBiaya.setText(String.valueOf(pesananObjek.get(position).getTotal()));
       holder.txtStatus.setText(pesananObjek.get(position).getStatus());
-      holder.konfirm.setOnTouchListener(new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
 
-          return false;
-        }
-      });
     }
 
   }
@@ -57,14 +51,12 @@ public class rv_cart_adapter extends RecyclerView.Adapter<rv_cart_adapter.rv_ord
 
   public class rv_order_ViewHolder extends RecyclerView.ViewHolder{
     private TextView txtid, txtBiaya,txtStatus;
-    private Button konfirm;
 
     public rv_order_ViewHolder(View itemView) {
       super(itemView);
       txtid = (TextView) itemView.findViewById(R.id.ID);
       txtBiaya = (TextView) itemView.findViewById(R.id.Cost);
       txtStatus = itemView.findViewById(R.id.Status);
-      konfirm = itemView.findViewById(R.id.Konfirm);
     }
   }
 }

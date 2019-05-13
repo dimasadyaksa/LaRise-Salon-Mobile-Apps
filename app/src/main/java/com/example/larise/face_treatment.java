@@ -40,7 +40,7 @@ public class face_treatment extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
     }
     public void onBackPressed(){
-        finish();
+        startActivityForResult(new Intent(face_treatment.this,mainmenu.class),10);
     }
     void dataFaceT(){
         Log.d("F", "Added");

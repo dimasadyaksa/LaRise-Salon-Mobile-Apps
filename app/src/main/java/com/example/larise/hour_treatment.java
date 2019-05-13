@@ -41,9 +41,8 @@ public class hour_treatment extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
     }
-
     public void onBackPressed(){
-        finish();
+        startActivityForResult(new Intent(hour_treatment.this,mainmenu.class),10);
     }
     void dataHourT(){
         Log.e("HOUR", "Added");

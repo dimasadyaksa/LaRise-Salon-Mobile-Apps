@@ -27,15 +27,6 @@
             android:fontFamily="@font/opensanssemibold"
             android:text="@string/order_biaya" />
 
-        <Button
-            android:id="@+id/Konfirm"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="end"
-            android:textSize="12sp"
-            android:layout_marginRight="10dp"
-            android:text="@string/order_cancel" />
 
         <ImageView
             android:id="@+id/imageView4"

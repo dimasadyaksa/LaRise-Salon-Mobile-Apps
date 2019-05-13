@@ -23,7 +23,7 @@ public class GLOBAL {
 	public static void setListener(final String uid){
 
 		Log.e("SET LISTENER", "TRUE");
-		db.child("pesanan").child(uid).addChildEventListener(new ChildEventListener() {
+		db.child("pesanan").child(user.getNama()).addChildEventListener(new ChildEventListener() {
 			@Override
 			public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 				Log.e("PESANAN LISTEN ADD", "ADD");
@@ -52,7 +52,7 @@ public class GLOBAL {
 			}
 
 		});
-		db.child("Cart").child(uid).addChildEventListener(new ChildEventListener() {
+		db.child("Cart").child(user.getNama()).addChildEventListener(new ChildEventListener() {
 			@Override
 			public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 				Log.e("CART LISTEN ADD", "ADD");
@@ -102,5 +102,8 @@ public class GLOBAL {
 	public static void sendPesanan(PesananObjek p){
 		Log.e("SEND PESANAN", "DONE");
 		fb.sendPesanan(p);
+	}
+	public static void hapusPesanan(){
+		fb.deletePesanan();
 	}
 }

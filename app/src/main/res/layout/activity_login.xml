@@ -72,7 +72,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/lpPassword"
+                android:id="@+id/lpPasswordLog"
                 android:layout_marginRight="30dp"
                 android:textSize="18sp"
                 android:textColor="@color/Background"

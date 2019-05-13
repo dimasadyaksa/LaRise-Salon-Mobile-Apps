@@ -1,7 +1,11 @@
 package com.example.larise;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,11 +46,27 @@ public class register extends AppCompatActivity {
         init();
         registrasi();
         moveLogin();
+        resetPassword();
     }
+
+    public void resetPassword(){
+        TextView textView = findViewById(R.id.lpPassword);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgotPass();
+            }
+        });
+    }
+
     public void registrasi(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setMessage("Loading");
+                progressDialog.show();
                 final String namauser = nama.getText().toString().trim();
                 final String emailuser = email.getText().toString().trim();
                 final String nohp = hp.getText().toString().trim();
@@ -74,6 +95,15 @@ public class register extends AppCompatActivity {
                                         db.child("users").child(userID).setValue(user);
                                         Toast.makeText(register.this, "Sukses mendaftar!",
                                                 Toast.LENGTH_SHORT).show();
+
+                                        Intent goToNextActivity = new Intent(register.this, mainmenu.class);
+
+                                        goToNextActivity.putExtra("UID",auth.getUid() );
+
+                                        if(progressDialog.isShowing()){
+                                            progressDialog.dismiss();
+                                        }
+                                        startActivity(goToNextActivity);
                                     }else{
                                         Toast.makeText(register.this, "Gagal Mendaftar!",
                                                 Toast.LENGTH_SHORT).show();
@@ -95,6 +125,47 @@ public class register extends AppCompatActivity {
                 startActivity(goToNextActivity);
             }
         });
+    }
+
+    public void forgotPass(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Email anda");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT );
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(!Patterns.EMAIL_ADDRESS.matcher(input.getText().toString()).matches()){
+                    Toast.makeText(register.this, "Email tidak valid",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    String emailAddress = input.getText().toString();
+
+                    auth.sendPasswordResetEmail(emailAddress)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("EMAIL", input.getText().toString());
+                                    }
+                                }
+                            });
+
+                }
+            }
+        });
+        builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     public void init(){

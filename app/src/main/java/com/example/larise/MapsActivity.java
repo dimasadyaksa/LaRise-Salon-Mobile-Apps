@@ -138,6 +138,7 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
                                     @Override
                                     public void onComplete(@NonNull Task<String> task) {
                                         GLOBAL.carts.clear();
+                                        GLOBAL.hapusPesanan();
                                         GLOBAL.pesananObjeks.add(pesananObjek);
                                         startActivity(new Intent(MapsActivity.this,mainmenu.class));
                                         if(progressDialog.isShowing()){
@@ -167,7 +168,9 @@ public class MapsActivity extends AppCompatActivity implements LocationListener,
 
     }
 
-
+    public void onBackPressed(){
+        startActivityForResult(new Intent(MapsActivity.this,CartView.class),10);
+    }
 
     @Override
     public void onLocationChanged(Location location) {

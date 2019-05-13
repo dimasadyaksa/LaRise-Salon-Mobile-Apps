@@ -85,14 +85,15 @@ public class CartView extends AppCompatActivity {
         i.putExtra("USER", user);
 
     }
+
     public void onBackPressed(){
-        setResult(RESULT_OK, i);
-        finish();
+        startActivity(new Intent(CartView.this,mainmenu.class));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     public int cost(){

@@ -29,14 +29,16 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CartView"
-            android:label="@string/title_activity_cart_view" />
+            android:label="@string/title_activity_cart_view"
+            android:noHistory="true"/>
         <activity
             android:name=".register"
             android:label="@string/title_activity_register"

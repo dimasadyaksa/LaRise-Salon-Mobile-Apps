@@ -38,10 +38,8 @@ public class full_body extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
     }
     public void onBackPressed(){
-
-        finish();
+        startActivityForResult(new Intent(full_body.this,mainmenu.class),10);
     }
-
     void dataFullBody(){
         Log.d("B", "Added");
         list_full_body.add(new Cart("Pijat Tradisional", 75000));

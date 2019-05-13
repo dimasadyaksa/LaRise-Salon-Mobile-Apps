@@ -95,19 +95,19 @@ public class FirebaseHelper implements Serializable {
         GLOBAL.carts.add(p);
         db = FirebaseDatabase.getInstance().getReference();
         p.no = "No - "+(GLOBAL.carts.size()+1);
-        db.child("Cart").child(GLOBAL.user.getUID()).child("No - "+(GLOBAL.carts.size()+1)).setValue(p);
+        db.child("Cart").child(GLOBAL.user.getNama()).child("No - "+(GLOBAL.carts.size()+1)).setValue(p);
     }
     public void sendPesanan(final PesananObjek p){
         Log.e("FBSEND Pesanan", "TRUE");
         DatabaseReference db;
         db = FirebaseDatabase.getInstance().getReference();
-        db.child("pesanan").child(uid).child(p.getId()).setValue(p);
+        db.child("pesanan").child(GLOBAL.user.getNama()).child(p.getId()).setValue(p);
     }
-    public void deleteCart(Cart p){
+    public void deletePesanan(){
         Log.e("FBDEL CART", "TRUE");
         DatabaseReference db;
         db = FirebaseDatabase.getInstance().getReference();
-        db.child("Cart").child(GLOBAL.user.getUID()).child(p.no).getParent().removeValue();
+        db.child("Cart").child(GLOBAL.user.getNama()).getParent().removeValue();
     }
 
 

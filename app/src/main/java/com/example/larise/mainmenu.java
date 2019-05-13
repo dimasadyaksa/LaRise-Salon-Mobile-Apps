@@ -87,24 +87,23 @@ public class mainmenu extends AppCompatActivity {
         tabLayout.setupWithViewPager(vpPager);
         user = new user();
 
-        Intent intent = getIntent();
-        UID = intent.getStringExtra("UID");
-        if(UID!=null){
-            GLOBAL.setListener(UID);
-        }else{
-            GLOBAL.setListener(GLOBAL.user.getUID());
-            UID = GLOBAL.user.getUID();
-        }
+
         showNotification();
         pd.setMessage("Loading");
         pd.show();
+        Intent intent = getIntent();
+        UID = intent.getStringExtra("UID");
+        if(UID==null){
+            UID=GLOBAL.user.getUID();
+        }
+//        UID = GLOBAL.user.getUID();
+//        GLOBAL.setListener(UID);
         pd.setCanceledOnTouchOutside(false);
         final TaskCompletionSource<user> source = new TaskCompletionSource<>();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 GLOBAL.init(UID);
-
                 source.setResult(GLOBAL.user);
             }
         }).start();
@@ -113,6 +112,7 @@ public class mainmenu extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<com.example.larise.user> task) {
 				Log.e("NNAMA", GLOBAL.user.getNama());
+				GLOBAL.setListener(UID);
 				cart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,7 +125,12 @@ public class mainmenu extends AppCompatActivity {
 				addTabs(vpPager);
 				setupTabIcons();
 
-
+                if(pd.isShowing()){
+                    pd.dismiss();
+                    pd.hide();
+                }
+            }
+        });
 
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -207,34 +212,27 @@ public class mainmenu extends AppCompatActivity {
                         break;
                 }
             }
-                @Override
-                public void onPageScrollStateChanged(int state) {
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-                }
-
-        });
-
-                if(pd.isShowing()){
-                    pd.dismiss();
-                    pd.hide();
-                }
             }
+
         });
-
-
     }
+
     public void onBackPressed(){
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
+        finish();
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 user  = (user)data.getSerializableExtra("USER");
             }
+        }else if(requestCode==10){
+            GLOBAL.setListener(UID);
+            GLOBAL.init(UID);
         }
     }
     private void addTabs(ViewPager viewPager) {

@@ -38,9 +38,8 @@ public class hand_n_foot extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
     }
-
     public void onBackPressed(){
-        finish();
+        startActivityForResult(new Intent(hand_n_foot.this,mainmenu.class),10);
     }
     void dataHnB(){
         Log.e("M", "Added");

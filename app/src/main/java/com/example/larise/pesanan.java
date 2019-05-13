@@ -32,7 +32,9 @@ public class pesanan extends Fragment  {
     pesanans = GLOBAL.pesananObjeks;
     View fView = inflater.inflate(R.layout.fragment_pesanan, container, false);
     rv_cart_adapter adapter = new rv_cart_adapter(pesanans);
+
     RecyclerView recyclerView = (RecyclerView) fView.findViewById(R.id.rv_pesanan);
+    recyclerView.smoothScrollToPosition(pesanans.size()-1);
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(layoutManager);
